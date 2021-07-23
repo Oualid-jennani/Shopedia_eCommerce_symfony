@@ -1,0 +1,155 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<!-- =========================== Breadcrumbs =================================== -->
+	<div class="breadcrumbs_wrap dark">
+		<div class="container">
+			<div class="row align-items-center">
+
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="text-center">
+						<h2 class="breadcrumbs_title">{% trans %}Account Settings{% endtrans %}</h2>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#">{% trans %}My Account{% endtrans %}</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{% trans %}Account Settings{% endtrans %}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- =========================== Breadcrumbs =================================== -->
+
+	<!-- =========================== Account Settings =================================== -->
+	<section class="gray">
+		<div class="container">
+			<div class="row">
+
+				{% include "frontOffice/master/dashboardNav.html.twig" %}
+
+				<div class="col-lg-8 col-md-9">
+					<!-- Total Items -->
+					<div class="card style-2 mb-4">
+						<div class="card-header">
+							<h4 class="mb-0">{% trans %}Account Detail{% endtrans %}</h4>
+						</div>
+						<div class="card-body">
+
+							<div class=" col-md-12">
+								{% for  message in app.flashes('success') %}
+									<div class=" text-success font-weight-blod">{{ message }}</div>
+								{% endfor %}
+
+								{% for  message in app.flashes('error') %}
+									<div class=" text-danger font-weight-blod">{{ message }}</div>
+								{% endfor %}
+							</div>
+
+							{{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+								<div class="row">
+
+									<div class="col-12 col-md-6">
+										<div class="form-group">
+											<div class="text-danger">{{ form_errors(form.fullName)}}</div>
+											<label>{% trans %}Full Name{% endtrans %}</label>
+											{{ form_widget(form.fullName,{'attr':{'class':'form-control','type':'text'}}) }}
+										</div>
+
+									</div>
+
+									<div class="col-12 col-md-6">
+										<div class="form-group">
+											<div class="text-danger">{{ form_errors(form.username)}}</div>
+											<label>{% trans %}Username{% endtrans %}</label>
+											{{ form_widget(form.username,{'attr':{'class':'form-control','type':'text'}}) }}
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="form-group">
+											<div class="text-danger">{{ form_errors(form.email)}}</div>
+											<label>{% trans %}Email{% endtrans %}</label>
+											{{ form_widget(form.email,{'attr':{'class':'form-control','type':'email'}}) }}
+										</div>
+									</div>
+
+									<div class="col-12">
+										<div class="form-group">
+											<div class="text-danger">{{ form_errors(form.contactPhone)}}</div>
+											<label>{% trans %}Phone Number{% endtrans %}</label>
+											{{ form_widget(form.contactPhone,{'attr':{'class':'form-control'}}) }}
+										</div>
+									</div>
+
+									<div class="col-12">
+										<button class="btn btn-dark" type="submit">{% trans %}Save Changes{% endtrans %}</button>
+									</div>
+
+								</div>
+							{{ form_end(form) }}
+						</div>
+					</div>
+
+					<div class="card style-2 mb-4">
+						<div class="card-header">
+							<h4 class="mb-0">{% trans %}Change Password{% endtrans %}</h4>
+						</div>
+						<div class="card-body">
+
+							{{ form_start(formPassword,{'attr':{'class':'needs-validation clearfix'}}) }}
+							<div class="row">
+
+								<div class=" col-md-12">
+									{% for  message in app.flashes('successPass') %}
+										<div class=" text-success float-left font-weight-blod">{{ message }}</div>
+									{% endfor %}
+
+									{% for  message in app.flashes('errorPass') %}
+										<div class=" text-danger float-left font-weight-blod">{{ message }}</div>
+									{% endfor %}
+								</div>
+
+								<div class="col-12 col-md-12">
+									<div class="form-group">
+										<div class="text-danger">{{ form_errors(formPassword.oldPassword)}}</div>
+										<label>{% trans %}Current Password{% endtrans %}</label>
+										{{ form_widget(formPassword.oldPassword,{'attr':{'class':'form-control','type':"password",'name':'old_paswoord','id':'validationCustom04'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<div class="text-danger">{{ form_errors(formPassword.newPassword)}}</div>
+										<label>{% trans %}New Password{% endtrans %}</label>
+										{{ form_widget(formPassword.newPassword,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<div class="text-danger">{{ form_errors(formPassword.confirmNewPassword)}}</div>
+										<label>{% trans %}Confirm New Password{% endtrans %}</label>
+										{{ form_widget(formPassword.confirmNewPassword,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+									</div>
+								</div>
+
+
+								<div class="col-12">
+									<button class="btn btn-dark" type="submit">{% trans %}Save Changes{% endtrans %}</button>
+								</div>
+
+							</div>
+							{{ form_end(formPassword) }}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =========================== Account Settings =================================== -->
+{% endblock %}

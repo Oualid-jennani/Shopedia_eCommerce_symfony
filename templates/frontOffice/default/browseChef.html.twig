@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <!-- ======================== Banner Start ==================== -->
+    <div class="full_banner" style="background:#f6ede8 url('assets/img/full-banner.png') no-repeat;">
+        <div class="container">
+            <div class="row justify-content-center">
+
+                <div class="col-lg-8 col-md-11 col-sm-12">
+                    <div class="short_banner_caption center mb-5">
+                        <h2 class="cl-2">{% trans %}Browse Chefs{% endtrans %}</h2>
+                        <p>{% trans %}Choose from your favorite Chef{% endtrans %}.</p>
+                    </div>
+                    {{ form_start(form) }}
+                    <div class="blocks search_blocks full_banner_form">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="input-group">
+                                    <input type="hidden" id="geoLoc" name="locUs">
+                                    <i class="fa fa-search location_map_code"></i>
+                                    <div class="text-danger">{{ form_errors(form.username) }}</div>
+                                    {{ form_widget(form.username,{'attr':{'class':'form-control'}}) }}
+
+                                    <div class="input-group-append">
+                                        <button class="btn search_btn btn-theme" type="submit">
+                                            <span>{% trans %}Search{% endtrans %}</span>
+                                            <div class="spinner-grow text-dark" role="status">
+                                                <span class="sr-only">{% trans %}Loading...{% endtrans %}</span>
+                                            </div>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- ======================== Banner End ==================== -->
+
+    <!-- ======================== Fresh Vegetables Start ==================== -->
+    <section class="cen-mid">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="sec-heading center">
+                        <h2 class="grocery_title">Chefs</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12">
+                    <div class="row">
+                        <!-- Single Item -->
+                        {% for chef in chefs %}
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="card card_big">
+                                            <div class="card-bg">
+                                                <div class="card-bg-img bg-cover" style="background:#fde9ed url({{ asset('images/cover_image/') }}{{ chef.coverImage }});"></div>
+                                            </div>
+                                            <div class="card-body my-auto">
+                                                <!-- Heading -->
+                                                <h3 class="mb-0 text-white font-weight-bold">{{ chef.storeName}}</h3>
+                                                <p class="text-dark font-weight-bold">{{ chef.menus.count }} Menus</p>
+
+                                                <!-- Link -->
+                                                <a class="btn btn-link" href="{{ path('show_chef',{'id': chef.id}) }}">
+                                                    Shop Now <i class="ti-arrow-right ml-2"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="clearfix"></div>
+    <!-- ======================== Fresh Vegetables End ==================== -->
+
+    <!-- ======================== Choose Category Start ==================== -->
+    <section class="light-yellow">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="sec-heading center">
+                        <h2>{% trans %}Quick Cuisines {% endtrans %}</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Item -->
+                {% for cuisine in cuisines %}
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        <div class="woo_category_box border_style none  rounded-circle">
+                            <div class="woo_cat_thumb">
+                                {% if cuisine.imageUrl is not null %}
+                                    <a href="#"><img src="{{ asset('images/menu_category/') }}{{ cuisine.imageUrl }}" class="img-fluid" alt="" /></a>
+                                {% else %}
+                                    <a href="#"><img src="https://via.placeholder.com/140x140" class="img-fluid" alt="" /></a>
+                                {% endif %}
+                            </div>
+                            <div class="woo_cat_caption">
+                                <h4><a href="#">Cuisine : {{ cuisine.cuisineName }}</a></h4>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </section>
+    <div class="clearfix"></div>
+    <!-- ======================== Choose Category End ==================== -->
+
+    <!-- =========================== Cart Detail =================================== -->
+    {{ render(url('headerCart')) }}
+    <!-- =========================== Cart Detail =================================== -->
+
+{% endblock %}
+{% block javascripts %}
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyCIwF204lFZg1y4kPSIhKaHEXMLYxxuMhA"></script>
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+    <script>
+        $(document).ready(function($) {
+            $('.search_btn').click(function() {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(geoSucc, geoErr, geoOpt);
+                } else {
+                    console.log('Geolocation is not supported by this browser.');
+                }
+            });
+            function geoSucc(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                console.log(latitude + ',' + longitude);
+                $('#geoLoc').val(latitude + ',' + longitude);
+
+            }
+            function geoErr(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log('User denied the request for Geolocation.');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log('Location information is unavailable.');
+                        break;
+                    case error.TIMEOUT:
+                        console.log('The request to get user location timed out.');
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log('An unknown error occurred.');
+                        break;
+                }
+            }
+            var geoOpt = {
+                timeout: 3000,
+                maximumAge: 30
+            }
+        });
+    </script>
+{% endblock %}
+

@@ -1,0 +1,107 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+				<li class="breadcrumb-item"><a href="{{ path('listSubMenu') }}">Menu</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}Menu list{% endtrans %}</a></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="col-md-12 mx-auto">
+			<div class="ms-panel">
+				<div class="ms-panel-header mb-4">
+					<h6 class="float-left">{% trans %}Sub Menu List{% endtrans %}</h6>
+					<div class="col-12 text-right p-0">
+						<a href="{{ path('newSubMenu') }}" class="btn btn-primary shadow-none">{% trans %}New Sub Menu{% endtrans %}</a>
+					</div>
+					{% for  message in app.flashes('success') %}
+						<div class=" text-success font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+
+					{% for  message in app.flashes('error') %}
+						<div class=" text-danger font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+				</div>
+				<div class="ms-panel-body">
+
+					<div class="table-responsive">
+						<table id="example4" class="table table-hover thead-primary text-center">
+							<thead>
+								<tr>
+									<th scope="col">{% trans %}Sub Menu{% endtrans %}</th>
+									<th scope="col">Menu</th>
+									<th scope="col">Description</th>
+									<th scope="col">Variant</th>
+									<th scope="col">image</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+
+							{% for SubMenu in SubMenus |sort|reverse %}
+								<tr>
+									<td>{{ SubMenu.name }}</td>
+									<td>{{ SubMenu.Menu.Name }}</td>
+									<td>{{ SubMenu.description }}</td>
+
+									{% if SubMenu.variants|default(null) %}
+										<td>
+											<a href="{{ path('listVariantSubMenu',{'id':SubMenu.id})}}" class="btn btn-primary shadow-none btn-variant">{% trans %}Change{% endtrans %}</a>
+										</td>
+									{% else %}
+										<td>
+											<a href="{{ path('listVariantSubMenu',{'id':SubMenu.id})}}" class="btn btn-danger shadow-none btn-variant">{% trans %}Add{% endtrans %}</a>
+										</td>
+									{% endif %}
+
+									<td><img src="{{ asset('images/sub_menu/') }}{{ SubMenu.imageUrl }}" width="100px" height="70px"></td>
+
+									<td>
+										<a href='{{ path('editSubMenu',{'id':SubMenu.id})}}'><i class='fas fa-edit text-success'></i></a>
+										<a href='javascript:void(0)' data-toggle="modal" data-target="#modal-1" onclick='deleteAction("{{ path('deleteSubMenu',{'id':SubMenu.id})}}")'><i class='far fa-trash-alt ms-text-danger'></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i> {% trans %}Delete Confirm{% endtrans %} !</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
+				<div class="modal-body">
+					<p>{% trans %}Do you really want to delete{% endtrans %} ?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+					<a href="#" class="btn btn-primary shadow-none" id="linkDelete">{% trans %}Delete{% endtrans %}</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{%  endblock %}

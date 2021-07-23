@@ -1,0 +1,167 @@
+{% form_theme form _self %}
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<!-- =========================== Breadcrumbs =================================== -->
+	<div class="breadcrumbs_wrap gray">
+		<div class="container">
+			<div class="row align-items-center">
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="text-center">
+						<h2 class="breadcrumbs_title">{% trans %}Checkout Page{% endtrans %}</h2>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#">Shop</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{% trans %}Checkout Page{% endtrans %}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- =========================== Breadcrumbs =================================== -->
+
+	<!-- =========================== Billing Section =================================== -->
+	<section>
+		{{ form_start(form,{'attr':{'id':'form-checkout'}}) }}
+			<div class="container">
+			<div class="row">
+
+				<div class="col-lg-8 col-md-12">
+						<!-- Heading -->
+						<h4 class="mb-5">{% trans %}Billing Details{% endtrans %}</h4>
+
+						<!-- Billing details -->
+						<div class="row mb-5">
+
+							{% if not app.user %}
+								<div class="col-12">
+									<!-- FullName -->
+									<div class="form-group">
+										<div class="text-danger">{{ form_errors(form.fullName)}}</div>
+										<label for="order_fullName">{% trans %}Full Name{% endtrans %} *</label>
+										{{ form_widget(form.fullName,{'attr':{'class':'form-control form-control-sm','type':'text','placeholder':'Full Name'}}) }}
+									</div>
+								</div>
+
+								<div class="col-12">
+									<!-- Mobile Phone -->
+									<div class="form-group">
+										<div class="text-danger">{{ form_errors(form.phone)}}</div>
+										<label for="order_phone">{% trans %}Mobile Phone{% endtrans %} *</label>
+										{{ form_widget(form.phone,{'attr':{'class':'form-control form-control-sm','type':'text','placeholder':'Mobile Phone'}}) }}
+									</div>
+								</div>
+
+							{% endif %}
+
+
+							<div class="col-12">
+								<!-- Address Line 1 -->
+								<div class="form-group">
+									<div class="text-danger">{{ form_errors(form.address)}}</div>
+									<label for="checkoutBillingAddress">{% trans %}Address{% endtrans %} *</label>
+									{{ form_widget(form.address,{'attr':{'class':'form-control form-control-sm','type':'text','placeholder':'Address'}}) }}
+								</div>
+							</div>
+
+							<div class="col-12">
+								<!-- Address Line 1 -->
+								<div class="form-group">
+									<div class="text-danger">{{ form_errors(form.note)}}</div>
+									<label for="checkoutBillingAddress">{% trans %}Note (optional){% endtrans %} *</label>
+									{{ form_widget(form.note,{'attr':{'class':'form-control form-control-sm','type':'text','placeholder':'Address'}}) }}
+								</div>
+							</div>
+
+						</div>
+				</div>
+
+				<div class="col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="cart_detail_box mb-4">
+						<div class="card-body">
+							<ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
+								<li class="list-group-item d-flex">
+									<h5 class="mb-0">{% trans %}Order Summary{% endtrans %}</h5>
+								</li>
+								<li class="list-group-item d-flex font-size-lg font-weight-bold">
+									<span>Total</span> <span class="ml-auto font-size-sm">${{ cart.total|number_format(2, ',', ' ') }}</span>
+								</li>
+								{% set Country = app.session.get('COUNTRY') %}
+							</ul>
+						</div>
+					</div>
+
+					<button type="submit" class="btn btn-block btn-primary mb-2">{% trans %}Checkout{% endtrans %}</button>
+
+					<!--
+					{% if Country == "Morroco" %}
+						<button type="submit" class="btn btn-block btn-primary mb-2">{% trans %}Checkout{% endtrans %}</button>
+					{% elseif Country == "Canada" %}
+						<div id="paypal-button-container"></div>
+					{% endif %}
+					-->
+					<a class="px-0 text-body" href="{{ path('index') }}"><i class="ti-back-left mr-2"></i> {% trans %}Continue Shopping{% endtrans %}</a>
+				</div>
+
+			</div>
+		</div>
+		{{ form_end(form) }}
+	</section>
+	<!-- =========================== Billing Section =================================== -->
+
+	<!-- =========================== Cart Detail =================================== -->
+	{{ render(url('headerCart')) }}
+	<!-- =========================== Cart Detail =================================== -->
+
+{% endblock %}
+
+{% block javascripts %}
+	<script src="{{ asset('assets/js/app.js') }}"></script>
+	<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+	<script>
+        paypal.Button.render({
+            env: 'sandbox', // sandbox | production
+            // Show the buyer a 'Pay Now' button in the checkout flow
+            commit: true,
+            style: {
+                label: 'checkout',  // checkout | credit | pay | buynow | generic
+                size:  'responsive',// small | medium | large | responsive
+                fundingicons: true, // optional
+                branding: true, // optional
+                shape: 'pill',   // pill | rect
+                color: 'blue'   // gold | blue | silver | black
+            },
+            // payment() is called when the button is clicked
+            payment: function() {
+                // Set up a url on your server to create the payment
+                var CREATE_URL = '/paypal-create-payement';
+                // Make a call to your server to set up the payment
+                return paypal.request.post(CREATE_URL)
+                    .then(function(res) {
+                        return res.result.id;
+                    });
+            },
+            // onAuthorize() is called when the buyer approves the payment
+            onAuthorize: function(data, actions) {
+                // Set up a url on your server to execute the payment
+                var EXECUTE_URL = '/paypal-capture-order';
+                // Set up the data you need to pass to your server
+                var data = {
+                    paymentID: data.paymentToken,
+                    payerID: data.payerID
+                };
+                // Make a call to your server to execute the payment
+                return paypal.request.post(EXECUTE_URL, data)
+                    .then(function (res) {
+                        $('#form-checkout').submit();
+                    });
+            }
+        }, '#paypal-button-container');
+	</script>
+{% endblock %}

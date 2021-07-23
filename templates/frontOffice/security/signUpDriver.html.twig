@@ -1,0 +1,130 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <!-- =========================== Breadcrumbs =================================== -->
+    <div class="breadcrumbs_wrap dark">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center">
+                        <h2 class="breadcrumbs_title">{% trans %}Register{% endtrans %}</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{% trans %}Driver registration{% endtrans %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =========================== Breadcrumbs =================================== -->
+
+    <!-- =========================== Login/Signup =================================== -->
+    <section>
+        <div class="container">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                    <div class="login_signup">
+                        <h3 class="login_sec_title">{% trans %}Create An Account{% endtrans %}</h3>
+                        {% for message in app.flashes('error') %}
+                            <span class="text-danger font-weight-bold">{{ message }}</span>
+                        {% endfor %}
+                        {{ form_start(form) }}
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.fullName)}}</div>
+                                        <label>{% trans %}Full Name{% endtrans %}</label>
+                                        {{ form_widget(form.fullName,{'attr':{'class':'form-control','type':'text'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.username)}}</div>
+                                        <label>{% trans %}Username{% endtrans %}</label>
+                                        {{ form_widget(form.username,{'attr':{'class':'form-control','type':'text'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.email)}}</div>
+                                        <label>{% trans %}Email{% endtrans %}</label>
+                                        {{ form_widget(form.email,{'attr':{'class':'form-control','type':'email'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.contactPhone)}}</div>
+                                        <label>{% trans %}Phone Number{% endtrans %}</label>
+                                        {{ form_widget(form.contactPhone,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.country)}}</div>
+                                        <label>{% trans %}Country{% endtrans %}</label>
+                                        {{ form_widget(form.country,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.city)}}</div>
+                                        <label>{% trans %}City{% endtrans %}</label>
+                                        {{ form_widget(form.city,{'attr':{'class':'form-control','id':'#country'}}) }}
+                                        <div class="spinner-border text-success" role="status">
+                                            <span class="sr-only">Loading...</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.password)}}</div>
+                                        <label>{% trans %}Password{% endtrans %}</label>
+                                        {{ form_widget(form.password,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6">
+                                    <div class="form-group">
+                                        <div class="text-danger">{{ form_errors(form.confirm_password)}}</div>
+                                        <label>{% trans %}Confirm password{% endtrans %}</label>
+                                        {{ form_widget(form.confirm_password,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 col-md-12">
+                                    <div class="login_flex">
+                                        <div class="login_flex_2">
+                                            <div class="form-group mb-0">
+                                                <button type="submit" class="btn btn-md btn-theme">{% trans %}Sign Up{% endtrans %}</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- =========================== Login/Signup =================================== -->
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('assets/js/app.js') }}"></script>
+{% endblock %}
+

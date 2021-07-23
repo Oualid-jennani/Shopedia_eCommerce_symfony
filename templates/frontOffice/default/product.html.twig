@@ -1,0 +1,677 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+	<!-- =========================== Breadcrumbs =================================== -->
+	<div class="breadcrumbs_wrap dark">
+		<div class="container">
+			<div class="row align-items-center">
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="text-center">
+						<h2 class="breadcrumbs_title">{{ Product.category.name }}</h2>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#">Shop</a></li>
+								<li class="breadcrumb-item"><a href="#">{{ Product.category.name }}</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{{ Product.name }}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- =========================== Breadcrumbs =================================== -->
+
+
+	<!-- =========================== Product Detail =================================== -->
+	<section class="pt-5">
+		<div class="container">
+			{{ form_start(form) }}
+
+				{% for message in app.flashes('success') %}
+					<div class="alert alert-success">{% trans %}The Product is Added to{% endtrans %}  <strong><a href="{{ path('cart') }}">{% trans %}Cart{% endtrans %} <i class="ti-shopping-cart-full ml-2"></i> </a></strong></div>
+				{% endfor %}
+				<div class="row">
+						{% if Product|default(null) %}
+
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="sp-loading"><img src="https://via.placeholder.com/1100x1220" alt=""><br>LOADING IMAGES </div>
+							<div class="sp-wrap">
+								{% for image in Product.images |sort|reverse|slice(0, 6) %}
+									<a href="{{ asset('images/product/') }}{{ image }}"><img src="{{ asset('images/product/') }}{{ image }}" alt=""></a>
+								{% endfor %}
+							</div>
+						</div>
+
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<div class="woo_pr_detail">
+
+								<div class="woo_cats_wrps">
+									<a href="#" class="woo_pr_cats">{{ Product.category.name }}</a>
+									<span class="woo_pr_trending">Trending</span>
+								</div>
+								<h2 class="woo_pr_title">{{ Product.name }}</h2>
+
+
+								<div class="woo_pr_reviews">
+									<div class="woo_pr_rating">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+										<span class="woo_ave_rat">4.8</span>
+									</div>
+									<div class="woo_pr_total_reviews">
+										<a href="#">(124 Reviews)</a>
+									</div>
+								</div>
+
+
+								<div class="woo_pr_short_desc">
+									<p>{{ Product.description }}</p>
+								</div>
+
+								<div class="woo_pr_price">
+									<div class="woo_pr_offer_price">
+										<h3 id="price_product"></h3>
+
+										<span id="old_price" class="org_price"></span>
+
+										<span class="ml-3">
+												Dhs
+										</span>
+									</div>
+
+
+								</div>
+
+								<div id="sizeMenu" class="woo_pr_color flex_inline_center mb-3">
+									<div class="woo_pr_varient">
+										<h6>Size:</h6>
+									</div>
+									<div class="pl-3">
+										{% if Product.variants|default(null) %}
+											{% for variant in Product.variants|sort((a, b) => a.sort >= b.sort) %}
+												{% set oldPrice = 0 %}
+												{% if variant.oldPrice %}
+													{% set oldPrice = variant.oldPrice %}
+												{% endif %}
+												<input type="radio" class="custom-control-input" name="variant[id]" onclick="changePriceProduct('price_product',{{ variant.price }},{{ oldPrice }},'dh')" id="vr{{ variant.id }}" value="{{ variant.id }}" data-toggle="form-caption" data-target="#sizeCaption">
+												{% if variant.size == 'standard' %}
+													<label class="custom-control-label mr-3" for="vr{{ variant.id }}">{{ variant.size|capitalize }}</label>
+												{% else %}
+													<label class="custom-control-label mr-3" for="vr{{ variant.id }}">{{ variant.size|upper }}</label>
+												{% endif %}
+											{% endfor %}
+										{% endif %}
+									</div>
+								</div>
+
+
+
+								<div class="woo_btn_action">
+									<div class="col-12 col-lg-auto p-0">
+										{{ form_widget(form.quantity,{'attr':{'class':'form-control qua_pr mb-2','value':'1','min':'1','max':'10'}}) }}
+									</div>
+									<div class="col-12 col-lg-auto">
+										<button type="submit" class="btn btn-block btn-primary mb-2">{% trans %}Add to Cart{% endtrans %} <i class="ti-shopping-cart-full ml-2"></i></button>
+									</div>
+
+									<div class="col-12 col-lg-auto">
+										<button class="btn btn-gray btn-block mb-2" data-toggle="button">Wishlist <i class="ti-heart ml-2"></i></button>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					{% endif %}
+				</div>
+			{{ form_end(form) }}
+
+
+
+			<!-- Product Description -->
+			<div class="row mt-5">
+				<div class="col-lg-12 col-md-12">
+					<div class="custom-tab style-1">
+						<ul class="nav nav-tabs" id="myTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true" aria-expanded="true">Description</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="information-tab" data-toggle="tab" href="#information" role="tab" aria-controls="information" aria-selected="false" aria-expanded="false">Additional Information</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="reviews-tab" data-toggle="tab" href="#reviews" role="tab" aria-controls="reviews" aria-selected="false" aria-expanded="false">Reviews</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="myTabContent">
+							<div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description-tab" aria-expanded="true">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+							</div>
+							<div class="tab-pane fade" id="information" role="tabpanel" aria-labelledby="information-tab" aria-expanded="false">
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce semper, magna a ultricies volutpat, mi eros viverra massa, vitae consequat nisi justo in tortor. Proin accumsan felis ac felis dapibus, non iaculis mi varius.</p>
+								<div class="product_meta">
+									<span class="sku_wrapper">SKU: <span class="sku">001</span></span>
+									<span class="posted_in">Categories:
+												<a href="#" rel="tag">Chair</a>,
+												<a href="#" rel="tag">Wood</a>
+											</span>
+									<span class="tagged_as">Tags:
+												<a href="#" rel="tag">Chair</a>,
+												<a href="#" rel="tag">Furniture</a>
+											</span>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab" aria-expanded="false">
+								<div class="review-wrapper">
+									<div class="review-wrapper-header">
+										<h4>24 Reviews</h4>
+									</div>
+									<div class="review-wrapper-body">
+										<ul class="review-list">
+											<li>
+												<div class="reviews-box">
+													<div class="review-body">
+														<div class="review-avatar">
+															<img alt="" src="https://via.placeholder.com/500x500" class="avatar avatar-140 photo">
+														</div>
+														<div class="review-content">
+															<div class="review-info">
+																<div class="review-comment">
+																	<div class="review-author">
+																		Cole Harris
+																	</div>
+																	<div class="review-comment-stars">
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star empty"></i>
+																	</div>
+																</div>
+																<div class="review-comment-date">
+																	<div class="review-date">
+																		<span>4 weeks ago</span>
+																	</div>
+																</div>
+															</div>
+															<p>At Vero Eos Et Accusamus Et Iusto Odio Dignissimos Ducimus Qui Blanditiis Praesentium Voluptatum Deleniti Atque Corrupti Quos Dolores Et Quas Molestias Excepturi Sint Occaecati Cupiditate Non Provident.</p>
+														</div>
+													</div>
+												</div>
+											</li>
+
+											<li>
+												<div class="reviews-box">
+													<div class="review-body">
+														<div class="review-avatar">
+															<img alt="" src="https://via.placeholder.com/500x500" class="avatar avatar-140 photo">
+														</div>
+														<div class="review-content">
+															<div class="review-info">
+																<div class="review-comment">
+																	<div class="review-author">
+																		Mariya Merry
+																	</div>
+																	<div class="review-comment-stars">
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star empty"></i>
+																	</div>
+																</div>
+																<div class="review-comment-date">
+																	<div class="review-date">
+																		<span>3 weeks ago</span>
+																	</div>
+																</div>
+															</div>
+															<p>At Vero Eos Et Accusamus Et Iusto Odio Dignissimos Ducimus Qui Blanditiis Praesentium Voluptatum Deleniti Atque Corrupti Quos Dolores Et Quas Molestias Excepturi Sint Occaecati Cupiditate Non Provident.</p>
+														</div>
+													</div>
+												</div>
+											</li>
+
+											<li>
+												<div class="reviews-box">
+													<div class="review-body">
+														<div class="review-avatar">
+															<img alt="" src="https://via.placeholder.com/500x500" class="avatar avatar-140 photo">
+														</div>
+														<div class="review-content">
+															<div class="review-info">
+																<div class="review-comment">
+																	<div class="review-author">
+																		Wadden Will
+																	</div>
+																	<div class="review-comment-stars">
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star"></i>
+																		<i class="fa fa-star empty"></i>
+																	</div>
+																</div>
+																<div class="review-comment-date">
+																	<div class="review-date">
+																		<span>5 weeks ago</span>
+																	</div>
+																</div>
+															</div>
+															<p>At Vero Eos Et Accusamus Et Iusto Odio Dignissimos Ducimus Qui Blanditiis Praesentium Voluptatum Deleniti Atque Corrupti Quos Dolores Et Quas Molestias Excepturi Sint Occaecati Cupiditate Non Provident.</p>
+														</div>
+													</div>
+												</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+
+								<div class="review-wrapper">
+									<div class="review-wrapper-header">
+										<h4>Rate &amp; Write Reviews</h4>
+									</div>
+									<div class="review-wrapper-body">
+
+										<div class="row mb-3">
+											<div class="col-md-12">
+												<div class="rating-opt">
+													<div class="jr-ratenode jr-nomal"></div>
+													<div class="jr-ratenode jr-nomal "></div>
+													<div class="jr-ratenode jr-nomal "></div>
+													<div class="jr-ratenode jr-nomal "></div>
+													<div class="jr-ratenode jr-nomal "></div>
+												</div>
+											</div>
+										</div>
+
+										<div class="row">
+											<div class="col-sm-6 form-group">
+												<input type="text" class="form-control" placeholder="Your Name*">
+											</div>
+											<div class="col-sm-6 form-group">
+												<input type="email" class="form-control" placeholder="Email Address*">
+											</div>
+											<div class="col-sm-12 form-group">
+												<textarea class="form-control height-110" placeholder="Tell us your experience..."></textarea>
+											</div>
+											<div class="col-sm-12">
+												<button type="button" class="btn btn-primary">Submit your review</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =========================== Product Detail =================================== -->
+
+	<!-- =========================== Related Products =================================== -->
+	<section class="gray">
+		<div class="container">
+
+			<div class="row">
+				<div class="col-lg-12 col-md-12 mb-2">
+					<h4 class="mb-0">Related Products</h4>
+				</div>
+			</div>
+
+			<div class="row">
+
+				<div class="col-lg-12 col-md-12">
+					<div class="owl-carousel products-slider owl-theme">
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_pr_tag hot">Hot</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_pr_tag new">New</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_offer_sell">Save 20% Off</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_pr_tag hot">Hot</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_pr_tag hot">Hot</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+						<!-- Single Item -->
+						<div class="item">
+							<div class="woo_product_grid">
+								<span class="woo_pr_tag new">New</span>
+								<div class="woo_product_thumb">
+									<img src="https://via.placeholder.com/500x500" class="img-fluid" alt="" />
+								</div>
+								<div class="woo_product_caption center">
+									<div class="woo_rate">
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star filled"></i>
+										<i class="fa fa-star"></i>
+									</div>
+									<div class="woo_title">
+										<h4 class="woo_pro_title"><a href="detail-1.html">Accumsan Tree Fusce</a></h4>
+									</div>
+									<div class="woo_price">
+										<h6>$72.47<span class="less_price">$112.10</span></h6>
+									</div>
+								</div>
+								<div class="woo_product_cart hover">
+									<ul>
+										<li><a href="javascript:void(0);" data-toggle="modal" data-target="#viewproduct-over" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+										<li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+										<li><a href="wishlist.html" class="woo_cart_btn btn_save"><i class="ti-heart"></i></a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+	</section>
+	<!-- =========================== Related Products =================================== -->
+
+	<!-- =========================== Cart Detail =================================== -->
+	{{ render(url('headerCart')) }}
+	<!-- =========================== Cart Detail =================================== -->
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+	<script>
+
+		function  displayPrice(price,typePrice,device) {
+			var number =  price.toFixed(2);
+			var numbers = number.toString().split(".");
+			var display = "";
+
+			if(typePrice === "price")
+			{
+				display = numbers[0] + "<sup>." + numbers[1] + " " + device + "</sup>";
+			}
+			else if(typePrice === "oldPrice"){
+				display = numbers[0] + "." + numbers[1] + " " + device;
+			}
+
+
+			return display;
+		}
+
+        function changePriceProduct(labelPrice,price,oldPrice,device){
+
+        	var label = document.getElementById(labelPrice);
+			var old_price = document.getElementById("old_price");
+
+			label.innerHTML = displayPrice(price,"price",device);
+
+			old_price.innerHTML = "";
+			if(oldPrice != 0){
+				old_price.innerHTML = displayPrice(oldPrice,"oldPrice",device);
+			}
+
+		}
+
+        function changePriceSubMenu(labelPrice,subMenuPrice,checkSubMenu){
+
+	        var listPrice = document.getElementsByClassName('tbl_org_price');
+
+            for (var i = 0; i < listPrice.length; i++) {
+                listPrice[i].style.display = 'none';
+            }
+
+            document.getElementById(labelPrice).textContent = subMenuPrice;
+            document.getElementById(labelPrice).style.display = 'block';
+            document.getElementById(checkSubMenu).checked = true;
+        }
+
+        function ChangeClickVariant(radioVariant){
+            document.getElementsByClassName(radioVariant)[0].click();
+        }
+
+
+
+
+        var sizeRadio = document.getElementsByName("variant[id]");
+        if(sizeRadio.length > 0)
+        {
+            sizeRadio[0].click();
+        }
+
+        var subMenu = document.getElementsByName("subMenu");
+        if(subMenu.length > 0)
+        {
+            subMenu[0].click();
+        }
+
+
+	</script>
+
+{% endblock %}

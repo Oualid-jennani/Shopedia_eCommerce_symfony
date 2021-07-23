@@ -1,0 +1,98 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> Home</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Second Admin</a></li>
+                <li class="breadcrumb-item active"><a href="{{ path('dashAdminNewSponsoredRestaurant') }}">New Second Admin</a></li>
+            </ol>
+        </nav>
+    </div>
+
+
+    <div class="col-md-12">
+        <div class="col-8 mx-auto">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-header mb-4">
+                    <h6 class="float-left">Add New Second Admin</h6>
+                    {% for  message in app.flashes('success') %}
+                        <div class=" text-success float-right font-weight-blod">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for  message in app.flashes('error') %}
+                        <div class=" text-danger float-right font-weight-blod">{{ message }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="ms-panel-body">
+                    {{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+                    <div class="form-row">
+                        <label for="validationCustom01">Username</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.username) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.username, {'attr':{'class':'form-control','id':'validationCustom01'}}) }}
+                        </div>
+
+                        <label for="validationCustom01">Full Name</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.fullName) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.fullName , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">Email</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.email) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.email , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">Phone Number</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.contactPhone) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.contactPhone , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">Country</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.country) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.country , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">City</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.city) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.city , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">Password</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.password) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.password , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                        <label for="validationCustom01">Confirm Password</label>
+                        <div class="text-danger font-weight-bold">{{ form_errors(form.confirm_password) }}</div>
+                        <div class="input-group">
+                            {{ form_widget(form.confirm_password , { 'attr' : {'class':'form-control'} }) }}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-12 text-right p-0">
+                        <button type="submit" class="btn btn-primary m-0">Add <i class="fas fa-save ml-2"></i></button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+{%  endblock %}
+{% block javascripts %}
+    <script src="{{ asset('dashAssets/js/app.js') }}"></script>
+{% endblock %}

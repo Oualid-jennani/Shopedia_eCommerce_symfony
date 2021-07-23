@@ -1,0 +1,124 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+				<li class="breadcrumb-item"><a href="{{ path('listProducts') }}">Products</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}Edit Product{% endtrans %}</a></li>
+			</ol>
+		</nav>
+	</div>
+
+	<div class="col-md-12">
+		<div class="col-8 mx-auto">
+			<div class="ms-panel ms-panel-fh">
+				<div class="ms-panel-header">
+					<div class="float-right">
+						{% for  message in app.flashes('success') %}
+							<div class=" text-success float-right font-weight-bold">{{ message }}</div>
+						{% endfor %}
+
+						{% for  message in app.flashes('error') %}
+							<div class=" text-danger float-right font-weight-bold">{{ message }}</div>
+						{% endfor %}
+					</div>
+					<h6>Edit Product</h6>
+				</div>
+
+				<div class="ms-panel-body">
+					{{ form_start(form,{'attr':{'class':'needs-validation clearfix','enctype':'multipart/form-data'}}) }}
+					<div class="form-row">
+
+						<div class="col-12">
+							<label for="validationCustom01">Images</label>
+
+							<div class="list-images">
+								<div class="my-list-images">
+									<section class="errorImage">
+										{% for  message in app.flashes('countFlashImage') %}
+											{% if message|number_format > 1 %}
+												<div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i>
+													{{ message }} {% trans%}wrong images{% endtrans %}
+												</div>
+											{% elseif message|number_format == 1%}
+												<div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i>
+													{% trans%}one wrong image{% endtrans %}
+												</div>
+											{% endif %}
+										{% endfor %}
+
+										{% for  message in app.flashes('errorImage')|reduce((unique, item) => item in unique ? unique : unique|merge([item]), []) %}
+											<div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i> {{ message }}</div>
+										{% endfor %}
+									</section>
+
+									<div id="row-images" class="row-images">
+
+										{% for image in product.images|sort|reverse|slice(0, 5) %}
+											<div class="image-old item-image">
+												<button type="button" class="close deleteImg">&times;</button>
+												<img src="{{ asset('images/Product/') }}{{ image }}">
+												<input type="hidden" value="{{ image }}" name="oldPic[]">
+											</div>
+										{% endfor %}
+
+										<div class="files">
+											<div id="divFiles">
+												<input type="file" name="pic[]" class="current-file" onchange="previewFile()" accept="image/*">
+											</div>
+											<label id="btnFiles" onclick="inputClick()"><i class="fa fa-plus"></i></label>
+										</div>
+									</div>
+
+
+								</div>
+
+							</div>
+						</div>
+
+
+						<div class="text-danger">{{ form_errors(form.name)}}</div>
+						<label>Name</label>
+						<div class="input-group">
+							{{ form_widget(form.name, {'attr':{'class':'form-control','type':'text','placeholder':'','id':'validationCustom01'}}) }}
+						</div>
+
+						<div class="text-danger">{{ form_errors(form.category)}}</div>
+						<label>Category</label>
+						<div class="input-group">
+							{{ form_widget(form.category, {'attr':{'class':'form-control','id':'validationCustom01'}}) }}
+						</div>
+
+						<div class="subCat w-100">
+							<div class="text-danger">{{ form_errors(form.subCategory)}}</div>
+							<label>Sub Category</label>
+							<div class="input-group">
+								{{ form_widget(form.subCategory, {'attr':{'class':'form-control','id':'validationCustom01'}}) }}
+							</div>
+						</div>
+
+						<div class="text-danger">{{ form_errors(form.description)}}</div>
+						<label>description</label>
+						<div class="input-group">
+							{{ form_widget(form.description, {'attr':{'class':'form-control','type':'number','placeholder':'','id':'validationCustom01'}}) }}
+						</div>
+
+					</div>
+
+					<div class="form-row">
+						<div class="col-12 p-0">
+							<a href="{{ path('listProducts') }}" class="btn btn-primary m-0 float-left">Back</a>
+							<button type="submit" class="btn btn-primary m-0 float-right">Edit</button>
+						</div>
+					</div>
+
+					{{ form_end(form) }}
+				</div>
+			</div>
+		</div>
+	</div>
+
+{%  endblock %}

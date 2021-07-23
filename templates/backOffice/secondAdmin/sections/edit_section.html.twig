@@ -1,0 +1,52 @@
+{% extends 'backOffice/baseDash.html.twig' %}
+
+{% block body %}
+
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Sections{% endtrans %}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}Edit Sections{% endtrans %}</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-md-12">
+        <div class="col-8 mx-auto">
+            <div class="ms-panel ms-panel-fh">
+                <div class="ms-panel-header mb-4">
+                    <h6 class="float-left">{{ 'Edit'|trans}} Section</h6>
+
+                    {% for  message in app.flashes('success') %}
+                        <div class=" text-success float-right">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for  message in app.flashes('error') %}
+                        <div class=" text-success float-right">{{ message }}</div>
+                    {% endfor %}
+                </div>
+
+                <div class="ms-panel-body">
+                    {{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+                    <div class="form-row">
+                        <div class="text-danger">{{ form_errors(form.name)}}</div>
+                        <label for="validationCustom29">{% trans %}Section Name{% endtrans %}</label>
+                        <div class="input-group">
+                            {{ form_widget(form.name,{'attr':{'class':'form-control','type':'text','placeholder':'Section Name','id':'validationCustom29'}}) }}
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 text-right p-0">
+                            <button type="submit" class="btn btn-primary m-0">{{ 'Edit'|trans }}</button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{%  endblock %}

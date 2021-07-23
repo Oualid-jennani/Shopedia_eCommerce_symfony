@@ -1,0 +1,131 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+				<li class="breadcrumb-item"><a href="{{ path('listProducts') }}">Products</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}Products List{% endtrans %}</a></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="col-md-12 mx-auto">
+			<div class="ms-panel">
+				<div class="ms-panel-header mb-4">
+					<h6 class="float-left">{% trans %}Products List{% endtrans %}</h6>
+					<div class="col-12 text-right p-0">
+						<a href="{{ path('newProduct') }}" class="btn btn-primary shadow-none">{% trans %}New Product{% endtrans %}</a>
+					</div>
+					{% for  message in app.flashes('success') %}
+						<div class=" text-success font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+
+					{% for  message in app.flashes('error') %}
+						<div class=" text-danger font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+				</div>
+				<div class="ms-panel-body">
+
+					<div class="table-responsive">
+						<table id="example4" class="table table-hover thead-primary text-center">
+							<thead>
+							<tr>
+								<th scope="col">Name</th>
+								<th scope="col">Category</th>
+								<th scope="col">Description</th>
+								<th scope="col">Variant</th>
+								<th scope="col">Product Images</th>
+								<th scope="col">Action</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							{% for Product in Products |sort|reverse %}
+								<tr>
+									<td>{{ Product.name }}</td>
+									<td>{{ Product.category.name }}</td>
+									<td>{{ Product.description }}</td>
+
+									{% if Product.variants is not empty %}
+										<td>
+											<a href="{{ path('listVariants',{'id':Product.id})}}" class="btn btn-primary shadow-none btn-variant">{% trans %}Change{% endtrans %}</a>
+										</td>
+									{% else %}
+										<td>
+											<a href="{{ path('listVariants',{'id':Product.id})}}" class="btn btn-danger shadow-none btn-variant">{% trans %}Add{% endtrans %}</a>
+										</td>
+									{% endif %}
+
+
+									<td>
+										{% if Product.images is not empty %}
+											<div id="dottedSlider{{ Product.id }}" class="ms-dotted-indicator-slider carousel slide carousel-menu" data-ride="carousel">
+												<ol class="carousel-indicators">
+												</ol>
+												<div class="carousel-inner carousel-inner-menu">
+													{% for image in Product.images |sort|reverse|slice(0, 5) %}
+														{% set active = "" %}
+
+														{% if loop.index == 1 %}{% set active = "active" %}{% endif %}
+														<div class="carousel-item {{ active }}">
+															<img class="d-block w-100" src="{{ asset('images/Product/') }}{{ image }}" width="150" height="100">
+														</div>
+													{% endfor %}
+												</div>
+												<a class="carousel-control-prev" href="#dottedSlider{{ Product.id }}" role="button" data-slide="prev">
+													<span class="material-icons" aria-hidden="true">keyboard_arrow_left</span>
+													<span class="sr-only">Previous</span>
+												</a>
+												<a class="carousel-control-next" href="#dottedSlider{{ Product.id }}" role="button" data-slide="next">
+													<span class="material-icons" aria-hidden="true">keyboard_arrow_right</span>
+													<span class="sr-only">Next</span>
+												</a>
+											</div>
+										{% endif %}
+									</td>
+
+									<td>
+										<a href='{{ path('editProduct',{'id':Product.id})}}'><i class='fas fa-edit text-success'></i></a>
+										<a href='javascript:void(0)' data-toggle="modal" data-target="#modal-1" onclick='deleteAction("{{ path('deleteProduct',{'id':Product.id})}}")'><i class='far fa-trash-alt ms-text-danger'></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i>{% trans %}Delete Confirm{% endtrans %} !</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
+				<div class="modal-body">
+					<p>{% trans %}Do you really want to delete{% endtrans %} ?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+					<a href="#" class="btn btn-primary shadow-none" id="linkDelete">{% trans %}Delete{% endtrans %}</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{%  endblock %}

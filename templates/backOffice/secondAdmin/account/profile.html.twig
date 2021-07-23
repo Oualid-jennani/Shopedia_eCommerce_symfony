@@ -1,0 +1,98 @@
+{% extends 'backOffice/baseDash.html.twig' %}
+
+{% block body %}
+    <div class="col-lg-12 col-md-12">
+        <div class="ms-profile-overview">
+            <div class="ms-profile-cover">
+                <img class="ms-profile-img" src="https://www.flaticon.com/svg/static/icons/svg/3140/3140850.svg" alt="people">
+                <div class="ms-profile-user-info">
+                    <h1 class="ms-profile-username">{{ user.fullName }}</h1>
+                    <h2 class="ms-profile-role">{% trans %}Second Admin{% endtrans %}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-12 col-md-12">
+        <h5>{% trans %}Change Informations{% endtrans %}</h5>
+        <div class="ms-panel">
+
+            <div class=" col-md-12 text-center">
+                {% for  message in app.flashes('success') %}
+                    <div class=" text-success float-right font-weight-blod">{{ message }}</div>
+                {% endfor %}
+
+                {% for  message in app.flashes('error') %}
+                    <div class=" text-danger float-right font-weight-blod">{{ message }}</div>
+                {% endfor %}
+            </div>
+
+            <div class="ms-panel-body">
+                {{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+                <div class="form-row">
+                    <label for="validationCustom01">{% trans %}Full Name{% endtrans %}</label>
+                    <div class="input-group">
+                        {{ form_widget(form.fullName, {'attr':{'class':'form-control','type':'text','placeholder':'Full Name','id':'validationCustom01'}}) }}
+                    </div>
+
+                    <label for="validationCustom01">{% trans %}Username{% endtrans %}</label>
+                    <div class="input-group">
+                        {{ form_widget(form.username , { 'attr' : {'class':'form-control','placeholder':'Username'} }) }}
+                    </div>
+
+                    <label for="validationCustom01">{% trans %}Phone Number{% endtrans %}</label>
+                    <div class="input-group">
+                        {{ form_widget(form.contactPhone , { 'attr' : {'class':'form-control','placeholder':'Phone'} }) }}
+                    </div>
+
+                    <label for="validationCustom01">{% trans %}Email{% endtrans %}</label>
+                    <div class="input-group">
+                        {{ form_widget(form.email , { 'attr' : {'class':'form-control','placeholder':'email'} }) }}
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-12 text-right p-0">
+                        <button type="submit" class="btn btn-primary m-0">{% trans %}Save{% endtrans %} <i class="fas fa-save"></i></button>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+
+    </div>
+    <div class="col-lg-12 col-md-12">
+        <h5>{% trans %}Change Password{% endtrans %}</h5>
+        <div class="ms-panel">
+            <div class="ms-panel-body">
+                {{ form_start(formPass,{'attr':{'class':'needs-validation clearfix'}}) }}
+                <div class="form-row">
+                    <label for="validationCustom01">{% trans %}Old Password{% endtrans %}</label>
+                    <span class="text-danger font-weight-bold">{{ form_errors(formPass.oldPassword)}}</span>
+                    <div class="input-group">
+                        {{ form_widget(formPass.oldPassword, {'attr':{'class':'form-control'}}) }}
+                    </div>
+
+                    <label for="validationCustom01">{% trans %}New Password{% endtrans %}</label>
+                    <span class="text-danger font-weight-bold">{{ form_errors(formPass.newPassword)}}</span>
+                    <div class="input-group">
+                        {{ form_widget(formPass.newPassword , { 'attr' : {'class':'form-control'} }) }}
+                    </div>
+
+                    <label for="validationCustom01">{% trans %}Confirm Password{% endtrans %}</label>
+                    <span class="text-danger font-weight-bold">{{ form_errors(formPass.confirmNewPassword)}}</span>
+                    <div class="input-group">
+                        {{ form_widget(formPass.confirmNewPassword , { 'attr' : {'class':'form-control'} }) }}
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    <div class="col-12 text-right p-0">
+                        <button type="submit" class="btn btn-primary m-0">{% trans %}Change{% endtrans %} <i class="fas fa-save"></i></button>
+                    </div>
+                </div>
+                {{ form_end(formPass) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

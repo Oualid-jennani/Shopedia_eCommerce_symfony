@@ -1,0 +1,89 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i>{% trans %}Home{% endtrans %}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Customers{% endtrans %}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}List Of Customers{% endtrans %}</a></li>
+            </ol>
+        </nav>
+    </div>
+    <div class="col-md-12">
+        <div class="col-md-12 mx-auto">
+            <div class="ms-panel">
+                <div class="ms-panel-header mb-4">
+                    <h6 class="float-left">{% trans %}Customers{% endtrans %}</h6>
+                    {% for  message in app.flashes('success') %}
+                        <div class=" text-success font-weight-bold float-right">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for  message in app.flashes('error') %}
+                        <div class=" text-danger font-weight-bold float-right">{{ message }}</div>
+                    {% endfor %}
+                </div>
+                <div class="ms-panel-body">
+                    <div class="container">
+                        <div class="row mb-4">
+                            {{ form_start(form,{'attr':{'class':'w-100'}}) }}
+                            <div class="row d-flex align-items-center">
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label>Country</label>
+                                        {{ form_widget(form.country,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <label>City</label>
+                                        {{ form_widget(form.city,{'attr':{'class':'form-control'}}) }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="form-group">
+                                        <div class="text-center mt-4">
+                                            <button  class="btn btn-primary btn-filter" type="submit">Filter <i class="fa fa-filter"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="example4" class="table table-hover thead-primary text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">Username</th>
+                                <th scope="col">FullName</th>
+                                <th scope="col">Contact Phone</th>
+                                <th scope="col">Country</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Address</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            {% for customer in customers |sort|reverse %}
+                                <tr>
+                                    <td>{{ customer.username }}</td>
+                                    <td>{{ customer.fullName }}</td>
+                                    <td>{{ customer.contactPhone }}</td>
+                                    <td>{{ customer.city.country.name }}</td>
+                                    <td>{{ customer.city.name }}</td>
+                                    <td>{{ customer.address }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{%  endblock %}

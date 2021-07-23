@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="author" content="www.frebsite.nl" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Odex - Organic Food & Grocery Market HTML Template</title>
+
+    <!-- Custom CSS -->
+    <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+
+</head>
+
+<body class="gray-dark">
+
+<!-- ============================================================== -->
+<!-- Preloader - style you can find in spinners.css -->
+<!-- ============================================================== -->
+<div id="preloader"><div class="preloader"><span></span><span></span></div></div>
+
+
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div id="main-wrapper">
+
+
+    <!-- =========================== Admin Sign Up =================================== -->
+    <section>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 col-md-5 col-sm-10 col-12">
+
+                    <div class="admin_login_wrap">
+                        <div class="admin_login_header">
+                            <h4><i class="ti-user mr-2"></i>Admin Register</h4>
+                        </div>
+
+                        <div class="admin_login_body">
+
+                            {% for  message in app.flashes('success') %}
+                                <div class=" text-success">{{ message }}</div>
+                            {% endfor %}
+
+                            {% for  message in app.flashes('error') %}
+                                <div class=" text-danger">{{ message }}</div>
+                            {% endfor %}
+
+
+
+                            {{ form_start(form) }}
+
+                                <div class="form-group">
+                                    <label>Full Name</label>
+                                    {{ form_widget(form.fullName,{'attr':{'class':'form-control','type':'text'}}) }}
+                                    <div class="text-danger">{{ form_errors(form.fullName)}}</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>User name</label>
+                                    {{ form_widget(form.username,{'attr':{'class':'form-control','type':'text'}}) }}
+                                    <div class="text-danger">{{ form_errors(form.username)}}</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Password</label>
+                                    {{ form_widget(form.password,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+                                    <div class="text-danger">{{ form_errors(form.password)}}</div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Confirm password</label>
+                                    {{ form_widget(form.confirm_password,{'attr':{'class':'form-control','type':"password",'id':'validationCustom04'}}) }}
+                                    <div class="text-danger">{{ form_errors(form.confirm_password)}}</div>
+                                </div>
+
+                                <div class="login_flex">
+                                    <div class="login_flex_2 mx-auto">
+                                        <div class="form-group mb-0">
+                                            <button type="submit" class="btn btn-md btn-theme">Sign Up</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =========================== Admin Sign Up =================================== -->
+
+
+
+</div>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
+
+<!-- ============================================================== -->
+<!-- All Jquery -->
+<!-- ============================================================== -->
+<script src="{{ asset('assets/js/jquery.min.js')  }}"></script>
+<script src="{{ asset('assets/js/popper.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
+<script src="{{ asset('assets/js/metisMenu.min.js')  }}"></script>
+<script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
+<script src="{{ asset('assets/js/ion.rangeSlider.min.js') }}"></script>
+<script src="{{ asset('assets/js/smoothproducts.js') }}"></script>
+<script src="{{ asset('assets/js/jquery-rating.js') }}"></script>
+<script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+<script src="{{ asset('assets/js/custom.js') }}"></script>
+<!-- ============================================================== -->
+<!-- This page plugins -->
+<!-- ============================================================== -->
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+	<section>
+		<div class="container">
+			<h1 class="text-center">Contact</h1>
+			<div class="row mt-5 align-items-center justify-content-center">
+				<div class="col-lg-8 col-md-12">
+					<div class="contact-form">
+						{% for message in app.flashes('success') %}
+							<div class="text-center text-success font-weight-bold">{{ message }}</div>
+						{% endfor %}
+						{% for message in app.flashes('error') %}
+							<div class="text-center text-danger font-weight-bold">{{ message }}</div>
+						{% endfor %}
+						{{ form_start(form) }}
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<label>{% trans %}Name{% endtrans %}</label>
+									<div class="text-danger">{{ form_errors(form.name) }}</div>
+									{{ form_widget(form.name,{'attr':{'class':'form-control'}}) }}
+								</div>
+								<div class="form-group col-md-6">
+									<label>Email</label>
+									<div class="text-danger">{{ form_errors(form.email) }}</div>
+									{{ form_widget(form.email,{'attr':{'class':'form-control'}}) }}
+								</div>
+							</div>
+							<div class="form-group col-lg-12 col-md-12">
+								<label>{% trans %}Subject{% endtrans %}</label>
+								<div class="text-danger">{{ form_errors(form.subject) }}</div>
+								{{ form_widget(form.subject,{'attr':{'class':'form-control'}}) }}
+							</div>
+							<div class="form-group col-lg-12 col-md-12">
+								<label>{% trans %}Message{% endtrans %}</label>
+								<div class="text-danger">{{ form_errors(form.message) }}</div>
+								{{ form_widget(form.message,{'attr':{'class':'form-control'}}) }}
+							</div>
+							<div class="form-group col-lg-12 col-md-12">
+								<button type="submit" class="btn btn-primary">{% trans %}Send{% endtrans %}</button>
+							</div>
+						{{ form_end(form) }}
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<div class="clearfix"></div>
+
+{% endblock %}
+{% block javascripts %}
+
+{% endblock %}

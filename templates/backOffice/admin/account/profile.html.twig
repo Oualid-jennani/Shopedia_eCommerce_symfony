@@ -1,0 +1,364 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block stylesheets %}
+
+{% endblock %}
+
+{% block body %}
+
+    <!--------------------------- modal image profile------------------------------->
+    <a href="javascript:void(0)" id="modal-profile" data-toggle="modal" data-target="#modal-1"></a>
+    <div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i>{% trans %}Change profile image{% endtrans %}</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <p class="pl-2">{% trans %}Do you really want to change profile image{% endtrans %} ?</p>
+                    <div class="text-center">
+                        <img src="https://via.placeholder.com/270x270" id="ms-profile-img-modal" class="ms-profile-img-modal" width="200px" height="200px" alt="people">
+                    </div>
+                </div>
+
+                <div class="modal-footer action-profile">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}cancel{% endtrans %}</button>
+                    <button class="btn btn-primary shadow-none" id="change-image-profile">{% trans %}Save{% endtrans %}</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--------------------------- modal image profile------------------------------->
+
+    <div class="col-lg-12 col-md-12">
+            <div class="ms-panel">
+                <div class="ms-panel-body">
+
+                    <div class="flash-messages">
+                        {% for  message in app.flashes('success') %}
+                            <div id="success-alert" class="alert alert-success alert-outline" role="alert">
+                                <i class="flaticon-tick-inside-circle"></i>
+                                <strong>Success !</strong> {{ message }}
+                                <!--
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                -->
+                            </div>
+                        {% endfor %}
+
+                        {% for  message in app.flashes('error') %}
+                            <div id="danger-alert" class="alert alert-danger alert-outline" role="alert">
+                                <i class="flaticon-tick-inside-circle"></i>
+                                <strong>Wrong !</strong> {{ message }}
+                                <!--
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                -->
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="ms-profile-overview">
+                        <div id="ms-profile-cover" class="ms-profile-cover" style="background-image: url('{{ asset('images/cover_image/')}}{{ admin.coverImage }}'); background-size: cover;">
+                            <!---------------- Cover Form ----------------------->
+                            {{ form_start(formCover,{'attr':{'class':'needs-validation clearfix','id':'cover-form','enctype':'multipart/form-data'}}) }}
+                            <div class="action-cover">
+                                <a href="javascript:void(0)" class="btn chose-other" onclick="document.getElementById('edit_cover_image_brochureCover').click()"><i class="fas fa-pencil-alt"></i></a>
+                                <a href="javascript:void(0)" class="btn cancel">Cancel</a>
+                                <button class="btn save">Save</button>
+                            </div>
+                            {% if form_errors(formCover.brochureCover) %}
+                                <div class="errors errors-cover" style="position: absolute;top: 0px;left:0;z-index: 2;width: 100%;padding: 0px">
+                                    <div>
+                                        {{ form_errors(formCover.brochureCover) }}
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            <div style="display: none">
+                                {{ form_widget(formCover.brochureCover, {'attr':{'class':'inputfile','type':'file','data-multiple-caption':'{count} files selected'}}) }}
+                            </div>
+
+                            <a href="javascript:void(0)" class="btn btn-edit-cover toggle-cover" onclick="document.getElementById('edit_cover_image_brochureCover').click()"><i class="fas fa-pencil-alt"></i></a>
+                            {{ form_end(formCover) }}
+                            <!---------------- Cover Form ----------------------->
+
+
+                            <!---------------- Profile Form ----------------------->
+                            {{ form_start(formProfile,{'attr':{'class':'needs-validation clearfix','id':'profile-form','enctype':'multipart/form-data'}}) }}
+                            <div class="my-user-profile toggle-cover">
+
+                                {% if admin.profileImage is not null %}
+                                    <img class="" id="ms-profile-img" src="{{ asset('images/profile_image/')}}{{ admin.profileImage }}" alt="people">
+                                {% else %}
+                                    <img class="" id="ms-profile-img" src="https://via.placeholder.com/270x270" alt="people">
+                                {% endif %}
+
+                                <a href="javascript:void(0)" class="btn btn-edit-profile" onclick="document.getElementById('edit_profile_image_brochureProfile').click()"><i class="fa fa-camera"></i></a>
+
+                                {% if form_errors(formProfile.brochureProfile) %}
+                                    <div class="errors errors-profile">
+                                        <div>
+                                            {{ form_errors(formProfile.brochureProfile) }}
+                                        </div>
+                                    </div>
+                                {% endif %}
+
+                                <div style="display: none">
+                                    {{ form_widget(formProfile.brochureProfile, {'attr':{'class':'inputfile','type':'file','data-multiple-caption':'{count} files selected'}}) }}
+                                </div>
+                            </div>
+                            {{ form_end(formProfile) }}
+                            <!---------------- Profile Form ----------------------->
+
+                            <div class="ms-profile-user-info toggle-cover">
+                                <h1 class="ms-profile-username">{{ admin.storeName }}</h1>
+                                <h2 class="ms-profile-role">Store</h2>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    {{ form_start(form,{'attr':{'class':'needs-validation clearfix','id':'info-account-form','enctype':'multipart/form-data'}}) }}
+                        <div class="form-row">
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <label for="validationCustom01">Gallery</label>
+
+                                <div class="list-images">
+                                    <div class="my-list-images">
+                                        <section class="errorImage">
+                                            {% for  message in app.flashes('countFlashImage') %}
+                                                {% if message|number_format > 1 %}
+                                                    <div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i>
+                                                        {{ message }} {% trans%}wrong images{% endtrans %}
+                                                    </div>
+                                                {% elseif message|number_format == 1%}
+                                                    <div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i>
+                                                        {% trans%}one wrong image{% endtrans %}
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+
+                                            {% for  message in app.flashes('errorImage')|reduce((unique, item) => item in unique ? unique : unique|merge([item]), []) %}
+                                                <div class="text-warning font-weight-bold errorImage"><i class="fas fa-exclamation-triangle"></i> {{ message }}</div>
+                                            {% endfor %}
+                                        </section>
+
+                                        <div id="row-images" class="row-images">
+
+                                            {% for image in admin.gallery.images|sort|reverse|slice(0, 5) %}
+                                                <div class="image-old item-image">
+                                                    <button type="button" class="close deleteImg">&times;</button>
+                                                    <img src="{{ asset('images/gallery_store/gallery') }}{{ admin.id }}/{{ image }}">
+                                                    <input type="hidden" value="{{ image }}" name="oldPic[]">
+                                                </div>
+                                            {% endfor %}
+
+                                            <div class="files">
+                                                <div id="divFiles">
+                                                    <input type="file" name="pic[]" class="current-file" onchange="previewFile()" accept="image/*">
+                                                </div>
+                                                <label id="btnFiles" onclick="inputClick()"><i class="fa fa-plus"></i></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-12 col-md-6">
+                                <div class="text-danger">{{ form_errors(form.fullName)}}</div>
+                                <label for="validationCustom01">{% trans %}Full Name{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.fullName, {'attr':{'class':'form-control','type':'text','placeholder':'Full Name','id':'validationCustom01'}}) }}
+                                </div>
+                            </div>
+
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12 col-md-6">
+                                <div class="text-danger">{{ form_errors(form.username)}}</div>
+                                <label for="validationCustom01">{% trans %}Username{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.username , { 'attr' : {'class':'form-control','placeholder':'Username'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.contactPhone)}}</div>
+                                <label for="validationCustom01">{% trans %}Phone Number{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.contactPhone , { 'attr' : {'class':'form-control','placeholder':'Phone'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.email)}}</div>
+                                <label for="validationCustom01">{% trans %}Email{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.email , { 'attr' : {'class':'form-control','placeholder':'email'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.storeName)}}</div>
+                                <label for="validationCustom01">{% trans %}Store Name{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.storeName, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.storePhone)}}</div>
+                                <label for="validationCustom01">{% trans %}Store Phone{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.storePhone, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.state)}}</div>
+                                <label for="validationCustom01">{% trans %}State{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.state, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.address)}}</div>
+                                <label for="validationCustom01">{% trans %}Address{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.address, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.postCode)}}</div>
+                                <label for="validationCustom01">{% trans %}Post Code{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.postCode, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                            <!--------------------  row group ------------------->
+                            <div class="col-12">
+                                <div class="text-danger">{{ form_errors(form.localisation)}}</div>
+                                <label for="validationCustom01">{% trans %}Localisation{% endtrans %}</label>
+                                <div class="input-group">
+                                    {{ form_widget(form.localisation, { 'attr' : {'class':'form-control'} }) }}
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-12 text-right mt-2">
+                                <button type="submit" class="btn btn-primary m-0">{% trans %}Save{% endtrans %} <i class="fas fa-save"></i></button>
+                            </div>
+                        </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <!--
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.js" integrity="sha512-tb1Ro9mw6+HBl4AzCtyFn4G9B/TJFDfGpil98I4zDUrACJ1e1XCD6o06i3jxTVaiP0PsYGkEkLbDkCkz3p77+Q==" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $("#info-account-form").validate();
+        });
+
+    </script>
+    -->
+    <script>
+
+        //------------------script image profile ---------------------
+        var imageProfile = document.getElementById("ms-profile-img");
+        var srcProfile = imageProfile.style.backgroundImage;
+        var imageProfileModal = document.getElementById("ms-profile-img-modal");
+
+        function readProfileURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    imageProfileModal.src = reader.result;
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#edit_profile_image_brochureProfile").change(function() {
+            readProfileURL(this);
+            $('#modal-profile').click();
+        });
+
+        $("#edit_profile_image_brochureProfile").click(function() {
+            $(this).val("")
+        });
+
+        $("#change-image-profile").click(function () {
+            $("#profile-form").submit();
+        });
+        //------------------script image profile ---------------------
+
+        //------------------script image cover ---------------------
+        var imageCover = document.getElementById("ms-profile-cover");
+        var srcCover = imageCover.style.backgroundImage;
+
+        function readCoverURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    imageCover.style.backgroundImage = 'url("'+ reader.result +'")' ;
+                }
+                reader.readAsDataURL(input.files[0]); // convert to base64 string
+            }
+        }
+        $("#edit_cover_image_brochureCover").change(function() {
+            readCoverURL(this);
+            $(".action-cover").show();
+            $(".toggle-cover").hide();
+        });
+
+        $(".action-cover .cancel").click(function () {
+            imageCover.style.backgroundImage = srcCover ;
+            $(".action-cover").hide();
+            $(".toggle-cover").show();
+            $("#edit_cover_image_brochureCover").val("")
+        })
+        //------------------script image cover ---------------------
+
+
+        //------------------script hide messages ---------------------
+        $(".flash-messages").fadeTo(3000, 500).slideUp(200);
+        $(".errors").fadeTo(5000, 500).fadeOut(200);
+        //------------------script hide messages ---------------------
+    </script>
+
+
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends 'backOffice/baseDash.html.twig' %}
+
+{% block body %}
+
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Drivers{% endtrans %}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}Assign a drivers to Section{% endtrans %}</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header mb-4">
+                        <h6 class="float-left">{% trans %}List of drivers{% endtrans %}</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover thead-primary text-center">
+                                <thead>
+                                <tr>
+                                    <th scope="col">{% trans %}Drivers{% endtrans %}</th>
+                                    <th scope="col">Section</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for driver in drivers %}
+                                    <tr>
+                                        <td>{{ driver.fullName }}</td>
+
+                                        <td>
+                                            {% if driver.section is not null %}
+                                                <i class="fa fa-check-circle text-success font-weight-bold"></i>
+                                            {% else %}
+                                                <i class="far fa-clock text-danger font-weight-bold" aria-hidden="true"></i>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+                <div class="ms-panel ms-panel-fh">
+                    <div class="ms-panel-header mb-4">
+                        <h6 class="float-left">{% trans %}Assign a drivers to a Section{% endtrans %}</h6>
+                    </div>
+
+                    <div class="ms-panel-body">
+                        {{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+                        <div class="form-row">
+                            <div class="text-danger">{{ form_errors(form.sections)}}</div>
+                            <label for="validationCustom29">{% trans %}Section Name{% endtrans %}</label>
+                            <div class="input-group">
+                                {{ form_widget(form.sections,{'attr':{'class':'form-control','type':'text','placeholder':'Section Name','id':'validationCustom29'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-12 text-right p-0">
+                                <button type="submit" class="btn btn-primary m-0">{{ 'Save'|trans }}</button>
+                            </div>
+                        </div>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+{%  endblock %}

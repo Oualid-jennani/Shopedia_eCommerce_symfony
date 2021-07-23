@@ -1,0 +1,67 @@
+<aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
+    <!-- Logo -->
+    <div class="logo-sn bg-white ms-d-block-lg">
+        <a class="pl-0 ml-0 text-center" href="{{ path('dashboardSecondAdmin') }}">
+            <img src="{{ asset('dashAssets/img/logo.png') }}" alt="logo">
+        </a>
+    </div>
+    <!-- Navigation -->
+    <ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
+
+        <!-- Dashboard -->
+        <li class="menu-item">
+            <a href="#" class="has-chevron" data-toggle="collapse" data-target="#dashboard" aria-expanded="false" aria-controls="dashboard"> <span><i class="material-icons fs-16">dashboard</i>Dashboard </span>
+            </a>
+            <ul id="dashboard" class="collapse" aria-labelledby="dashboard" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('dashboardSecondAdmin') }}">Foodepia</a>
+                </li>
+            </ul>
+        </li>
+        <!-- /Dashboard -->
+
+
+        <!-- Orders   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Orders" aria-expanded="false" aria-controls="Orders"> <span><i class="fas fa-concierge-bell fs-16"></i> Orders </span>
+            </a>
+            <ul id="Orders" class="collapse" aria-labelledby="Orders" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('secondAdminOrders') }}">Orders</a></li>
+            </ul>
+        </li>
+        <!-- /Orders  -->
+
+        <!-- Restaurants   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Restaurants" aria-expanded="false" aria-controls="Restaurants"> <span><i class="fas fa-home"></i> Restaurants </span>
+            </a>
+            <ul id="Restaurants" class="collapse" aria-labelledby="Restaurants" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('secondAdminRestaurants') }}">Restaurants</a></li>
+            </ul>
+        </li>
+        <!-- /Restaurants  -->
+
+        <!-- Drivers   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Drivers" aria-expanded="false" aria-controls="Drivers"> <span><i class="fas fa-motorcycle"></i> Drivers </span>
+            </a>
+            <ul id="Drivers" class="collapse" aria-labelledby="Drivers" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('second_admin_drivers') }}">Drivers</a></li>
+                <li> <a href="{{ path('second_admin_drivers_pending') }}">Drivers {{ 'Pending'|trans }}</a></li>
+                <li> <a href="{{ path('second_admin_localisationDrivers')}}">Localisation Driver</a></li>
+            </ul>
+        </li>
+        <!-- /Drivers  -->
+
+        <!-- Sections   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Sections" aria-expanded="false" aria-controls="Sections"> <span><i class="fa fa-list-alt" aria-hidden="true"></i> Sections </span>
+            </a>
+            <ul id="Sections" class="collapse" aria-labelledby="Sections" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('second_admin_sections') }}">Sections</a></li>
+            </ul>
+        </li>
+        <!-- /Sections  -->
+
+
+    </ul>
+</aside>

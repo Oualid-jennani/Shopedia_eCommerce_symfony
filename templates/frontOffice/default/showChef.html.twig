@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    <!-- =========================== Search Products =================================== -->
+    <section class="">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="ms-profile-overview">
+                        {% set src = "" %}
+                        {% if store.coverImage is not null and store.coverImage !="" %}
+                            {% set src =  asset('images/cover_image/') ~ store.coverImage  %}
+                        {% else %}
+                            {% set src = "" %}
+                        {% endif %}
+
+                        <div class="ms-profile-cover" style="background-image: url('{{ src }}'); background-size: cover;">
+                            <img class="ms-profile-img" src="/images/profile_image/{{ store.profileImage }}" alt="people">
+                            <div class="ms-profile-user-info">
+                                <h1 class="ms-profile-username">{{ store.storeName }}</h1>
+                                <h2 class="ms-profile-role">Chef</h2>
+                            </div>
+
+                            {% if app.user|default(null) %}
+                                {% if app.user != store %}
+                                    {% set exist = false %}
+                                    {% set followId = null %}
+
+                                    {% for follow in app.user.followers %}
+                                        {% if follow.store == store %}
+                                            {% set exist = true %}
+                                            {% set followId = follow.id %}
+                                        {% endif %}
+                                    {% endfor%}
+
+
+                                    {% if exist == true %}
+                                        <div class="ms-profile-user-buttons">
+                                            <a href="{{ path('removeFollower',{'id':followId}) }}" class="btn btn-danger"> <i class="fas fa-user-minus mr-1"></i>  {% trans %}UnFollow{% endtrans %}</a>
+                                        </div>
+                                    {% else %}
+                                        <div class="ms-profile-user-buttons">
+                                            <a href="{{ path('addFollower',{'store':store.id}) }}" class="btn btn-primary"> <i class="fas fa-user-plus mr-1"></i> {% trans %}Follow{% endtrans %}</a>
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="filter_search_opt">
+                        <a href="javascript:void(0);" onclick="openFilterSearch()"><i class="ti-reload"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-12">
+                    <div class="search-sidebar sm-sidebar" id="filter_search" style="left:0;">
+                        <div class="search-sidebar_header">
+                            <h4 class="ssh_heading">{% trans %}Close Filter{% endtrans %}</h4>
+                            <button onclick="closeFilterSearch()" class="w3-bar-item w3-button w3-large"><i class="ti-close"></i></button>
+                        </div>
+                        <div class="search-sidebar-body">
+
+                            <!-- Single Option -->
+                            <div class="single_search_boxed">
+                                <div class="widget-boxed-header">
+                                    <h4><a href="#manager" data-toggle="collapse" aria-expanded="false" role="button">Manager</a></h4>
+                                </div>
+                                <div class="widget-boxed-body collapse show" id="manager" data-parent="#manager">
+                                    <div class="side-list no-border">
+                                        <!-- Single Filter Card -->
+                                        <div class="single_filter_card">
+                                            <div class="card-body pt-0">
+                                                <div class="inner_widget_link">
+                                                    <ul class="no-ul-list">
+                                                        {% if manager is not null %}
+                                                            <li>{% trans%}Name{% endtrans%} : {{ manager.fullName }}</li>
+                                                            <li>{% trans%}Phone{% endtrans%} :{{ manager.contactPhone }} </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="widget-boxed-header">
+                                    <h4><a href="#cuisine" data-toggle="collapse" aria-expanded="false" role="button">Cuisine</a></h4>
+                                </div>
+                                <div class="widget-boxed-body collapse show" id="cuisine" data-parent="#cuisine">
+                                    <div class="side-list no-border">
+                                        <!-- Single Filter Card -->
+                                        <div class="single_filter_card">
+                                            <div class="card-body pt-0">
+                                                <div class="inner_widget_link">
+                                                    <ul class="no-ul-list">
+                                                        <li>
+                                                            <input id="all" class="checkbox-custom" name="all" type="checkbox" checked>
+                                                            <label for="all" class="checkbox-custom-label">{% trans %}All{% endtrans %}<span></span></label>
+                                                        </li>
+
+                                                        {% for cuisine in cuisines %}
+                                                            <li>
+                                                                <input id="cuisine-{{ cuisine.id }}" class="checkbox-custom cuisineCheckbox" name="cuisine{{ cuisine.id }}" type="checkbox">
+                                                                <label for="cuisine-{{ cuisine.id }}" class="checkbox-custom-label">{{ cuisine.cuisineName }}<span></span></label>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Manager part  -->
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-12">
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="custom-tab style-1">
+                                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" id="menus-tab" data-toggle="tab" href="#menus" role="tab" aria-controls="menus" aria-selected="true" aria-expanded="true">Menus</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="gallery-tab" data-toggle="tab" href="#gallery" role="tab" aria-controls="gallery" aria-selected="false" aria-expanded="false">Gallery</a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content" id="myTabContent">
+                                    <div class="tab-pane fade active show" id="menus" role="tabpanel" aria-labelledby="menus-tab" aria-expanded="true">
+                                        <!-- row Menus -->
+                                        <div class="row">
+                                            {% for menu in store.menus |sort|reverse %}
+                                                <!-- Single Item -->
+                                                {% if (menu.variants|default(null) or menu.subMenus.count > 0 ) and menu.images[0]|default(null)  %}
+                                                    <div class="col-lg-3 col-md-4 col-sm-6 menu cuisine-{{ menu.menuCategory.id }}">
+                                                        <div class="woo_product_grid">
+                                                            <div class="woo_product_thumb">
+                                                                <img src="{{ asset('images/menu/') }}{{ menu.images[0] }}" width="500" height="500" class="img-fluid" alt="" />
+                                                            </div>
+                                                            <div class="woo_product_caption center">
+                                                                <div class="woo_rate">
+                                                                    <i class="fa fa-star filled"></i>
+                                                                    <i class="fa fa-star filled"></i>
+                                                                    <i class="fa fa-star filled"></i>
+                                                                    <i class="fa fa-star filled"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                </div>
+                                                                <div class="woo_title">
+                                                                    <h4 class="woo_pro_title"><a href="detail-1.html">{{ menu.name }}</a></h4>
+                                                                </div>
+                                                                <div class="woo_title">
+                                                                    <h4 class="woo_pro_title"><a href="detail-1.html">Cuisine :{{ menu.menuCategory.cuisineName }}</a></h4>
+                                                                </div>
+
+                                                                {% for variant in menu.variants |sort|reverse %}
+                                                                    {% if variant.size == 'standard' %}
+                                                                        <div class="woo_price">
+                                                                            <h6>${{ variant.price }}</h6>
+                                                                        </div>
+                                                                    {% endif %}
+                                                                {% endfor %}
+
+
+                                                            </div>
+                                                            <div class="woo_product_cart hover">
+                                                                <ul>
+                                                                    <li><a href="{{ path('product',{'id':menu.id}) }}" class="woo_cart_btn btn_cart"><i class="ti-eye"></i></a></li>
+                                                                    <li><a href="add-to-cart.html" class="woo_cart_btn btn_view"><i class="ti-shopping-cart"></i></a></li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                        <!-- row Menus -->
+                                    </div>
+                                    <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab" aria-expanded="false">
+                                        {% if store.gallery is not null and store.gallery.images is not empty %}
+                                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                                <div class="carousel-inner">
+                                                    {% for url in store.gallery.images %}
+                                                        {% set active = "" %}
+                                                        {% if loop.index == 1 %}{% set active = "active" %}{% endif %}
+                                                        <div class="carousel-item {{ active }}">
+                                                            <img class="d-block w-100" src="{{ asset('images/gallery_chef/gallery') }}{{ store.id }}/{{ url }}" alt="First slide" width="500" height="400">
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Previous</span>
+                                                </a>
+                                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                    <span class="sr-only">Next</span>
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            <div class="alert alert-light">That Chef d'ont have a Gallery</div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =========================== Search Products =================================== -->
+
+    <!-- =========================== Cart Detail =================================== -->
+    {{ render(url('headerCart')) }}
+    <!-- =========================== Cart Detail =================================== -->
+
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function () {
+            $('#all').change(function () {
+                if ($('#all').is(':checked')) {
+                    $('.cuisineCheckbox').prop('checked',false);
+                    $('.menu').show();
+                }else {
+                    $('.menu').hide();
+                }
+            });
+            $('input[type=checkbox]').change(function () {
+                var id =$(this).attr('id');
+                if(id != 'all'){
+                    if ($('#all').is(':checked')) {
+                        $('#all').prop('checked',false);
+                        $('.menu').hide();
+                    }
+                    if($(this).is(':checked')){
+                        $('.'+id).show();
+                    }else {
+                        $('.'+id).hide();
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock %}

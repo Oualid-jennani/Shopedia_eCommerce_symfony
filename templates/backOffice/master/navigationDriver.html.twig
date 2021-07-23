@@ -1,0 +1,36 @@
+<aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
+	<!-- Logo -->
+	<div class="logo-sn bg-white ms-d-block-lg">
+		<a class="pl-0 ml-0 text-center" href="index.html">
+			<img src="{{ asset('dashAssets/img/logo.png') }}" alt="logo">
+		</a>
+	</div>
+	<!-- Navigation -->
+	<ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
+
+		<!-- Dashboard -->
+		<li class="menu-item">
+			<a href="#" class="has-chevron" data-toggle="collapse" data-target="#dashboard" aria-expanded="false" aria-controls="dashboard"> <span><i class="material-icons fs-16">dashboard</i>Dashboard </span>
+			</a>
+			<ul id="dashboard" class="collapse" aria-labelledby="dashboard" data-parent="#side-nav-accordion">
+				<li> <a href="{{ path('dashboardDriver') }}">Costic</a>
+				</li>
+			</ul>
+		</li>
+		<!-- /Dashboard -->
+
+
+
+		<!-- Order -->
+		<li class="menu-item">
+			<a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Menu" aria-expanded="false" aria-controls="Menu"> <span><i class="material-icons fs-16">&#xe561;</i> Orders </span>
+			</a>
+			<ul id="Menu" class="collapse" aria-labelledby="Menu" data-parent="#side-nav-accordion">
+				<li> <a href="{{ path('dashDriverOrders') }}">Order List</a></li>
+			</ul>
+		</li>
+		<!-- /Order -->
+
+
+	</ul>
+</aside>

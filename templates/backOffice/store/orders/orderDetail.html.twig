@@ -1,0 +1,142 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> Home</a></li>
+				<li class="breadcrumb-item"><a href="javascript:void(0)">Orders</a></li>
+				<li class="breadcrumb-item"><a href="javascript:void(0)">List Orders</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">Detail</a></li>
+			</ol>
+		</nav>
+	</div>
+
+	<div class="col-md-12">
+
+		<div class="ms-panel">
+			<div class="ms-panel-header header-mini">
+				<div class="d-flex justify-content-between">
+					<h6>Order Detail</h6>
+					<h6>{{ order.trackNumber }}</h6>
+				</div>
+			</div>
+			<div class="ms-panel-body">
+
+				<!-- Invoice To -->
+				<div class="row align-items-center">
+					<div class="col-md-6">
+						<div class="invoice-address">
+							<h4 class="text-success">Client Info</h4>
+							<p class="mb-0"><b>Client Name :</b> {{ order.fullName }}</p>
+							<p class="mb-0"><b>Client Phone :</b> {{ order.phone }}</p>
+							<p class="mb-0"><b>Address :</b> {{ order.address }}</p>
+							<p class="mb-0"><b>City :</b> {{ order.city.name }}</p>
+							<p class="mb-0"><b>Country :</b> {{ order.city.country.name }}</p>
+
+							{% if order.note is not null %}
+								<p><b>Client Note :</b> {{ order.note }}</p>
+							{% endif %}
+						</div>
+					</div>
+					<div class="col-md-6 text-md-right">
+						<ul class="invoice-date">
+							<li>Order Date : {{ order.orderDate|date("d/m/Y") }}</li>
+							<li>Order Status :
+								{% if order.status == 'INITIATED' %}
+									<span class="badge badge-square badge-danger">Pending</span>
+								{% elseif order.status == 'CANCELED'%}
+									<span class="badge badge-square badge-dark">Cancelled</span>
+								{% elseif order.status == 'VALIDATED'%}
+									<span class="badge badge-square badge-warning">Validated</span>
+								{% elseif order.status == 'IN TRANSIT'%}
+									<span class="badge badge-square badge-info">In Transit</span>
+								{% elseif order.status == 'DELIVERED'%}
+									<span class="badge badge-square badge-success">Delivered</span>
+								{% elseif order.status == 'RETURNED'%}
+									<span class="badge badge-square badge-dark">Returned</span>
+								{% endif %}
+							</li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="ms-invoice-table table-responsive mt-5">
+					<table class="table text-right thead-primary">
+						<thead>
+						<tr class="text-capitalize">
+							<th class="text-left">Merchant</th>
+							<th class="text-left">Menu/SubMenu</th>
+							<th>Size</th>
+							<th>Unit Cost</th>
+							<th>Qty</th>
+							<th>Total</th>
+						<tr>
+						</thead>
+						<tbody>
+
+							{% for cart in order.carts |sort|reverse %}
+
+								<!-- Invoice Table -->
+								{% for line in cart.cartlines |sort|reverse %}
+
+									<tr>
+										{% if loop.index == 1 %}
+											<td class="text-left" style="border-right: 1px solid #dee2e6" rowspan="{{ cart.cartlines.count }}">
+												<h6 class="">Name : {{ cart.store.storeName }}</h6>
+												<h6 class="">Phone : {{ cart.store.storePhone }}</h6>
+												<h6 class="">Address : {{ cart.store.address }}</h6>
+											</td>
+										{% endif %}
+
+
+										{% if line.variant.menu is not null %}
+											<td class="text-left">
+												<img src="/images/menu/{{ line.variant.menu.images[0] }}" alt="people" width="50" height="50" class="mr-2">
+												<strong>{{ line.variant.menu.name }}</strong>
+											</td>
+										{% elseif line.variant.subMenu is not null %}
+											<td class="text-left">
+												<img src="/images/sub_menu/{{ line.variant.subMenu.imageUrl }}" alt="people" width="50" height="50" class="mr-2">
+												<strong>{{ line.variant.subMenu.menu.name }} |</strong>
+												<span>{{ line.variant.subMenu.name }}</span>
+											</td>
+										{% endif %}
+
+										<td>{{ line.variant.size }}</td>
+										<td>${{ line.variant.price }}</td>
+										<td>{{ line.quantity }}</td>
+										<td>${{ line.total }}</td>
+
+									</tr>
+
+								{% endfor %}
+
+								<tr>
+									<td class="pb-3" colspan="5">Total Cost: </td>
+									<td class="pb-3" >${{ cart.total }}</td>
+								</tr>
+
+							{% endfor %}
+						</tbody>
+						<tfoot>
+							<tr>
+								<td class="text-center" colspan="6">
+									<h4 class="text-success">Total Order : ${{ order.total }}</h4>
+								</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+				<!--<div class="invoice-buttons text-right">
+					<a href="#" class="btn btn-primary mr-2">Print Order</a>
+				</div>-->
+			</div>
+		</div>
+
+	</div>
+
+
+
+{%  endblock %}

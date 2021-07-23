@@ -1,0 +1,50 @@
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<!-- =========================== Login/Signup =================================== -->
+<section>
+    <div class="container">
+
+        <div class="row">
+
+            <div class="col-lg-6 col-md-12 col-sm-12 mx-auto">
+                <div class="login_signup">
+                    <h3 class="login_sec_title">{% trans %}Sign In{% endtrans %}</h3>
+                    {% for  message in app.flashes('success') %}
+                        <div class=" text-success font-wight-bold">{{ message }}</div>
+                    {% endfor %}
+
+                    {% for  message in app.flashes('error') %}
+                        <div class=" text-danger font-wight-bold">{{ message }}</div>
+                    {% endfor %}
+                    <form action="{{ path('security_login') }}" method="post">
+                        <div class="form-group">
+                            <label>Username</label>
+                            <input type="text" class="form-control" name="_username">
+                        </div>
+                        <div class="form-group">
+                            <label>{% trans %}Password{% endtrans %}</label>
+                            <input type="password" class="form-control" name="_password">
+                        </div>
+                        <div class="mb-2">
+                            <a href="{{ path('app_forgot_password_request') }}">Forgot password</a>
+                        </div>
+                        <div class="login_flex">
+                            <div class="login_flex_2">
+                                <div class="form-group mb-0">
+                                    <button type="submit" class="btn btn-md btn-theme">{% trans %}Login{% endtrans %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- =========================== Login/Signup =================================== -->
+
+{% endblock %}

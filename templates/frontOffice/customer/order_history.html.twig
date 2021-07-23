@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+    <!-- =========================== Breadcrumbs =================================== -->
+    <div class="breadcrumbs_wrap dark">
+        <div class="container">
+            <div class="row align-items-center">
+
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="text-center">
+                        <h2 class="breadcrumbs_title">{% trans %}Account Settings{% endtrans %}</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#">{% trans %}My Account{% endtrans %}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">{% trans %}Account Settings{% endtrans %}</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- =========================== Breadcrumbs =================================== -->
+
+
+    <!-- =========================== Account Settings =================================== -->
+    <section class="gray">
+        <div class="container">
+            <div class="row">
+
+                {% include "frontOffice/master/dashboardNav.html.twig" %}
+
+                <div class="col-lg-8 col-md-9">
+                    <!-- Total Items -->
+                    <div class="card style-2">
+                        <div class="card-header">
+                            <h4 class="mb-0">{% trans %}Total Order{% endtrans %}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">{% trans %}Order{% endtrans %} N°</th>
+                                        <th scope="col">{% trans %}Order Date{% endtrans %}</th>
+                                        <th scope="col">{% trans %}Price{% endtrans %}</th>
+                                        <th scope="col">{% trans %}Status{% endtrans %}</th>
+                                        <th scope="col">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for order in orders %}
+                                    <tr>
+                                        <td>{{ order.trackNumber }}</td>
+                                        <td>{{ order.orderDate | date('d/m/Y') }}</td>
+                                        <td>{{ order.total }}$</td>
+                                        <td>{{ order.status }}</td>
+                                        <td><a href="{{ path('orderTrack',{'id':order.id}) }}" class="btn btn-sm btn-theme">{% trans %}Track Order{% endtrans %}</a></td>
+                                        <td><a href="{{ path('NewOrder',{'id':order.id}) }}" class="btn btn-sm btn-theme">{% trans %}New Order{% endtrans %}</a></td>
+                                    </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- =========================== Account Settings =================================== -->
+{% endblock %}

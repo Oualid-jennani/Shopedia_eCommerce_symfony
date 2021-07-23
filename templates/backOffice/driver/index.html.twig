@@ -1,0 +1,100 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+	<!-- ============  Gestion des messages flush ===============  -->
+
+
+	{% for message in app.flashes('success') %}
+
+		<div class="alert alert-success" role="alert">
+			<div class="text-center font-weight-bold">{{ message }}</div>
+		</div>
+
+	{% endfor %}
+
+	{% for message in app.flashes('error') %}
+
+		<div class="alert alert-danger" role="alert">
+			<div class="text-center font-weight-bold">{{ message }}</div>
+		</div>
+
+	{% endfor %}
+
+	{% for message in app.flashes('warning') %}
+
+		<div class="alert alert-warning" role="alert">
+			<div class="text-center font-weight-bold">{{ message }}</div>
+		</div>
+
+	{% endfor %}
+	<!-- ================ end message flush ================= -->
+
+
+	{% if app.user.transportation is null %}
+		<div class="alert alert-danger" role="alert">
+			Welcome <strong>{{ app.user.fullName }}</strong> {% trans %}you need to fill in the transportation information{% endtrans %}.
+			<strong><a href="{{ path('addDriverTransportation',{'id':app.user.id}) }}">{% trans %}Click Here to Complete your information's{% endtrans %}</a></strong>
+		</div>
+	{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+	<script
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvs0WiVfCaLHqoes4fv1TW_FdC5-9zoyM&callback=initMap&libraries=&v=weekly"
+			async
+	></script>
+	<script>
+        $(document).ready(function($) {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(geoSucc, geoErr, geoOpt);
+            } else {
+                console.log('Geolocation is not supported by this browser.');
+            }
+            function geoSucc(position) {
+                var latitude = position.coords.latitude;
+                var longitude = position.coords.longitude;
+                console.log(latitude + ',' + longitude);
+                const $loc = latitude + ',' + longitude;
+                $.ajax({
+                    'url' : '/driver/updateLocalisation', // To update localisation
+                    'data' : {
+                        'loc' : $loc
+                    },
+                    'type': 'post',
+                    'beforeSend' : function() {
+                        //$('.spinner-border').show();
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    },
+                    error: function (err) {
+                        console.log(err);
+                    }
+                });
+            }
+            function geoErr(error) {
+                switch(error.code) {
+                    case error.PERMISSION_DENIED:
+                        console.log('User denied the request for Geolocation.');
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        console.log('Location information is unavailable.');
+                        break;
+                    case error.TIMEOUT:
+                        console.log('The request to get user location timed out.');
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        console.log('An unknown error occurred.');
+                        break;
+                }
+            }
+            var geoOpt = {
+                timeout: 3000,
+                maximumAge: 30
+            }
+        });
+	</script>
+
+{% endblock %}

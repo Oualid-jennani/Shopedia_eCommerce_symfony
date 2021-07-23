@@ -1,0 +1,814 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="ScJmuqq" resname="Search">
+        <source>Search</source>
+        <target>Chercher</target>
+      </trans-unit>
+      <trans-unit id="YxSBSal" resname="Featured Restaurants">
+        <source>Featured Restaurants</source>
+        <target>Restaurants en vedette</target>
+      </trans-unit>
+      <trans-unit id="WWAz01v" resname="Find restaurants near you">
+        <source>Find restaurants near you</source>
+        <target>Trouvez des restaurants près de chez vous</target>
+      </trans-unit>
+      <trans-unit id="iKc9iXj" resname="Order Delivery Food Online From Local Restaurants">
+        <source>Order Delivery Food Online From Local Restaurants</source>
+        <target>Commandez de la nourriture de livraison en ligne à partir de restaurants locaux</target>
+      </trans-unit>
+      <trans-unit id="R9KlFe8" resname="Loading...">
+        <source>Loading...</source>
+        <target>Chargement...</target>
+      </trans-unit>
+      <trans-unit id="CRRSvta" resname="Quick Cuisines">
+        <source>Quick Cuisines</source>
+        <target>Nos Cuisines</target>
+      </trans-unit>
+      <trans-unit id="yqg62Ik" resname="Browse Restaurant">
+        <source>Browse Restaurant</source>
+        <target>Chercher un restaurant</target>
+      </trans-unit>
+      <trans-unit id="8a09DeA" resname="Choose from your favorite Restaurant">
+        <source>Choose from your favorite Restaurant</source>
+        <target>Choisissez parmi votre restaurant préféré</target>
+      </trans-unit>
+      <trans-unit id="0Pm8ejs" resname="Account Settings">
+        <source>Account Settings</source>
+        <target>Paramètres du compte</target>
+      </trans-unit>
+      <trans-unit id="rQGHrde" resname="My Account">
+        <source>My Account</source>
+        <target>Mon compte</target>
+      </trans-unit>
+      <trans-unit id="04Br9mU" resname="Account Detail">
+        <source>Account Detail</source>
+        <target>Détail du compte</target>
+      </trans-unit>
+      <trans-unit id="jgDN9x_" resname="Full Name">
+        <source>Full Name</source>
+        <target>Nom complet</target>
+      </trans-unit>
+      <trans-unit id="47ienTP" resname="Username">
+        <source>Username</source>
+        <target>Nom d'utilisateur</target>
+      </trans-unit>
+      <trans-unit id="lpzL089" resname="Email">
+        <source>Email</source>
+        <target>Email</target>
+      </trans-unit>
+      <trans-unit id="ctupru2" resname="Phone Number">
+        <source>Phone Number</source>
+        <target>Numéro de téléphone</target>
+      </trans-unit>
+      <trans-unit id="NTIrW7W" resname="Save Changes">
+        <source>Save Changes</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
+      <trans-unit id="qUn0YjB" resname="Change Password">
+        <source>Change Password</source>
+        <target>Changer Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="isdgmcx" resname="Current Password">
+        <source>Current Password</source>
+        <target>Mot de passe actuel</target>
+      </trans-unit>
+      <trans-unit id="fEUeD0N" resname="New Password">
+        <source>New Password</source>
+        <target>Nouveaux mot de passe</target>
+      </trans-unit>
+      <trans-unit id="ZCd2wCw" resname="Confirm New Password">
+        <source>Confirm New Password</source>
+        <target>Confirmer le nouveau mot de passe</target>
+      </trans-unit>
+      <trans-unit id="LdUITqI" resname="you need to fill in the transportation information">
+        <source>you need to fill in the transportation information</source>
+        <target>vous devez remplir les informations de transport</target>
+      </trans-unit>
+      <trans-unit id="8iE9OQl" resname="Click Here to Complete your information's">
+        <source>Click Here to Complete your information's</source>
+        <target>Cliquez ici pour compléter vos informations</target>
+      </trans-unit>
+      <trans-unit id="OnhpU4i" resname="Home">
+        <source>Home</source>
+        <target>Acceuil</target>
+      </trans-unit>
+      <trans-unit id="t_is3VI" resname="Orders">
+        <source>Orders</source>
+        <target>Commandes</target>
+      </trans-unit>
+      <trans-unit id="pFDKJZ." resname="Orders list">
+        <source>Orders list</source>
+        <target>Liste des commandes</target>
+      </trans-unit>
+      <trans-unit id="sFQzQ4t" resname="Order Detail">
+        <source>Order Detail</source>
+        <target>Details du commande</target>
+      </trans-unit>
+      <trans-unit id="Q.wSim3" resname="Customer Info">
+        <source>Customer Info</source>
+        <target>Informations du client</target>
+      </trans-unit>
+      <trans-unit id="G.WoHMR" resname="Customer Name">
+        <source>Customer Name</source>
+        <target>Nom du client</target>
+      </trans-unit>
+      <trans-unit id="swyaiDB" resname="Customer Phone">
+        <source>Customer Phone</source>
+        <target>Numero du tel</target>
+      </trans-unit>
+      <trans-unit id="Vu_PIJV" resname="Address">
+        <source>Address</source>
+        <target>Adresse</target>
+      </trans-unit>
+      <trans-unit id=".DP3Mkb" resname="City">
+        <source>City</source>
+        <target>Ville</target>
+      </trans-unit>
+      <trans-unit id="cB0CHQj" resname="Country">
+        <source>Country</source>
+        <target>Pays</target>
+      </trans-unit>
+      <trans-unit id="h20kvPA" resname="Customer Note">
+        <source>Customer Note</source>
+        <target>Note du client</target>
+      </trans-unit>
+      <trans-unit id="7aP1RXH" resname="Order Date">
+        <source>Order Date</source>
+        <target>Date du commande</target>
+      </trans-unit>
+      <trans-unit id=".OXoFbk" resname="Order Status">
+        <source>Order Status</source>
+        <target>Statut du commande</target>
+      </trans-unit>
+      <trans-unit id="MxVRsN5" resname="Pending">
+        <source>Pending</source>
+        <target>En Attente</target>
+      </trans-unit>
+      <trans-unit id="01OpnrR" resname="Cancelled">
+        <source>Cancelled</source>
+        <target>Annulé</target>
+      </trans-unit>
+      <trans-unit id="7quc1EI" resname="Validated">
+        <source>Validated</source>
+        <target>Validé</target>
+      </trans-unit>
+      <trans-unit id="0M5UwQE" resname="In Transit">
+        <source>In Transit</source>
+        <target>En transit</target>
+      </trans-unit>
+      <trans-unit id="kGEVZXO" resname="Delivered">
+        <source>Delivered</source>
+        <target>Livré</target>
+      </trans-unit>
+      <trans-unit id="NhAjH9y" resname="Returned">
+        <source>Returned</source>
+        <target>Retoure</target>
+      </trans-unit>
+      <trans-unit id="tjjk_4Y" resname="Menu/SubMenu">
+        <source>Menu/SubMenu</source>
+        <target>Menu/Sous-Menu</target>
+      </trans-unit>
+      <trans-unit id="GvhRkHM" resname="Size">
+        <source>Size</source>
+        <target>Taille</target>
+      </trans-unit>
+      <trans-unit id="y4IhdDk" resname="Unit Cost">
+        <source>Unit Cost</source>
+        <target>Coût unitaire</target>
+      </trans-unit>
+      <trans-unit id="3NHVIj9" resname="Name">
+        <source>Name</source>
+        <target>Nom</target>
+      </trans-unit>
+      <trans-unit id="Y9zriAC" resname="Phone">
+        <source>Phone</source>
+        <target>Numero de tel</target>
+      </trans-unit>
+      <trans-unit id="36XMc42" resname="Total Cost">
+        <source>Total Cost</source>
+        <target>Coût total</target>
+      </trans-unit>
+      <trans-unit id="i3k31_J" resname="Total Order">
+        <source>Total Order</source>
+        <target>Totale</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Sauvegarder</target>
+      </trans-unit>
+      <trans-unit id="9XF9VQX" resname="You need to complete your cover picture">
+        <source>You need to complete your cover picture</source>
+        <target>Vous devez compléter votre photo de couverture</target>
+      </trans-unit>
+      <trans-unit id="89b_aTh" resname="You need to complete your profile picture">
+        <source>You need to complete your profile picture</source>
+        <target>Vous devez compléter votre photo de profil</target>
+      </trans-unit>
+      <trans-unit id="iS2HJr_" resname="You need to complete your localisation information's">
+        <source>You need to complete your localisation information's</source>
+        <target><![CDATA[Vous devez compléter vos informations de localisation/target>]]></target>
+      </trans-unit>
+      <trans-unit id="T9igFkD" resname="Edit Menu">
+        <source>Edit Menu</source>
+        <target>Modifier Menu</target>
+      </trans-unit>
+      <trans-unit id="h99_81c" resname="wrong images">
+        <source>wrong images</source>
+        <target>images non compatible</target>
+      </trans-unit>
+      <trans-unit id="Jq9vP8K" resname="wrong image">
+        <source>wrong image</source>
+        <target>image non compatible</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Modifier</target>
+      </trans-unit>
+      <trans-unit id="ma9mBv_" resname="Menu">
+        <source>Menu</source>
+        <target>Menu</target>
+      </trans-unit>
+      <trans-unit id="twh3iGv" resname="New Menu">
+        <source>New Menu</source>
+        <target>Nouveau Menu</target>
+      </trans-unit>
+      <trans-unit id="NGJtIA4" resname="Add Menu">
+        <source>Add Menu</source>
+        <target>Ajouter Menu</target>
+      </trans-unit>
+      <trans-unit id="n9coxmy" resname="Add">
+        <source>Add</source>
+        <target>Ajouter</target>
+      </trans-unit>
+      <trans-unit id="xQ9K3._" resname="Sub Menu">
+        <source>Sub Menu</source>
+        <target>Sous Menu</target>
+      </trans-unit>
+      <trans-unit id="BVzCVzt" resname="Edit Sub Menu">
+        <source>Edit Sub Menu</source>
+        <target>Modifier Sous Menu</target>
+      </trans-unit>
+      <trans-unit id="wHKKhBy" resname="Menu list">
+        <source>Menu list</source>
+        <target>Liste des Menus</target>
+      </trans-unit>
+      <trans-unit id="Ob10sw1" resname="Sub Menu List">
+        <source>Sub Menu List</source>
+        <target>Liste des sous Menu</target>
+      </trans-unit>
+      <trans-unit id="4P_dYKL" resname="New Sub Menu">
+        <source>New Sub Menu</source>
+        <target>Nouveau sous Menu</target>
+      </trans-unit>
+      <trans-unit id="wL91vXi" resname="Change">
+        <source>Change</source>
+        <target>Changer</target>
+      </trans-unit>
+      <trans-unit id="zCzKZkX" resname="Delete Confirm">
+        <source>Delete Confirm</source>
+        <target>_Confirmation de supression</target>
+      </trans-unit>
+      <trans-unit id="LBprKN7" resname="Do you really want to delete">
+        <source>Do you really want to delete</source>
+        <target>Voulez-vous vraiment supprimer</target>
+      </trans-unit>
+      <trans-unit id="fZ63rLE" resname="Close">
+        <source>Close</source>
+        <target>Fermer</target>
+      </trans-unit>
+      <trans-unit id="4tClSWj" resname="Delete">
+        <source>Delete</source>
+        <target>Suprimer</target>
+      </trans-unit>
+      <trans-unit id=".0Vn4dP" resname="Add Sub Menu">
+        <source>Add Sub Menu</source>
+        <target>Ajouter un sous Menu</target>
+      </trans-unit>
+      <trans-unit id="ecf65cg" resname="List Sub Menu">
+        <source>List Sub Menu</source>
+        <target>Liste des sous Menu</target>
+      </trans-unit>
+      <trans-unit id="fo8OWxz" resname="Add Variant">
+        <source>Add Variant</source>
+        <target>Ajouter Variant</target>
+      </trans-unit>
+      <trans-unit id="aDtTH0H" resname="price">
+        <source>price</source>
+        <target>prix</target>
+      </trans-unit>
+      <trans-unit id="eWb1gOo" resname="Variant List">
+        <source>Variant List</source>
+        <target>Liste des Variants </target>
+      </trans-unit>
+      <trans-unit id="k8kchR5" resname="Price">
+        <source>Price</source>
+        <target>Prix</target>
+      </trans-unit>
+      <trans-unit id="GXZu1sy" resname="Cancel">
+        <source>Cancel</source>
+        <target>Annuler</target>
+      </trans-unit>
+      <trans-unit id="3JAWbaF" resname="Second Admin">
+        <source>Second Admin</source>
+        <target>Second Admin</target>
+      </trans-unit>
+      <trans-unit id="Agn5UrD" resname="Change Informations">
+        <source>Change Informations</source>
+        <target>Changer les  Informations</target>
+      </trans-unit>
+      <trans-unit id="nWqfZgB" resname="Old Password">
+        <source>Old Password</source>
+        <target>Ancien mot de passe</target>
+      </trans-unit>
+      <trans-unit id="wpIhDEQ" resname="Confirm Password">
+        <source>Confirm Password</source>
+        <target>Confirmation mot de passe</target>
+      </trans-unit>
+      <trans-unit id="6BjO5RT" resname="Drivers">
+        <source>Drivers</source>
+        <target>Livreurs</target>
+      </trans-unit>
+      <trans-unit id="1.NncCl" resname="List Of Drivers">
+        <source>List Of Drivers</source>
+        <target>Liste des livreurs</target>
+      </trans-unit>
+      <trans-unit id="Zvc26Oc" resname="Drivers List">
+        <source>Drivers List</source>
+        <target>Liste des livreurs</target>
+      </trans-unit>
+      <trans-unit id="BzGmOhv" resname="FullName">
+        <source>FullName</source>
+        <target>Nom Complet</target>
+      </trans-unit>
+      <trans-unit id="nCD4XT8" resname="Contact Phone">
+        <source>Contact Phone</source>
+        <target>Contact Phone</target>
+      </trans-unit>
+      <trans-unit id="5f.W5lQ" resname="Transportation">
+        <source>Transportation</source>
+        <target>Transportation</target>
+      </trans-unit>
+      <trans-unit id="kuEF5LI" resname="Transportation Licence Plate">
+        <source>Transportation Licence Plate</source>
+        <target>Plaque d'immatriculation de transport</target>
+      </trans-unit>
+      <trans-unit id="zPVk04L" resname="Transportation Color">
+        <source>Transportation Color</source>
+        <target>Transportation Color</target>
+      </trans-unit>
+      <trans-unit id="8x9PyFE" resname="Localisation">
+        <source>Localisation</source>
+        <target>Localisation</target>
+      </trans-unit>
+      <trans-unit id="5XJg9zo" resname="List Orders">
+        <source>List Orders</source>
+        <target>List des commandes</target>
+      </trans-unit>
+      <trans-unit id="Nzs4TCd" resname="Orders List">
+        <source>Orders List</source>
+        <target>Liste des commandes</target>
+      </trans-unit>
+      <trans-unit id="K0NCxW_" resname="Date Order">
+        <source>Date Order</source>
+        <target>Date du commande</target>
+      </trans-unit>
+      <trans-unit id="_18n1UV" resname="Detail">
+        <source>Detail</source>
+        <target>Detail</target>
+      </trans-unit>
+      <trans-unit id="kg5BPH1" resname="Status">
+        <source>Status</source>
+        <target>Statuts</target>
+      </trans-unit>
+      <trans-unit id="LwXAsA_" resname="Cancel Confirm">
+        <source>Cancel Confirm</source>
+        <target>Confirmation d'annulation</target>
+      </trans-unit>
+      <trans-unit id="9f3ZiLk" resname="Do you really want to Cancel this order">
+        <source>Do you really want to Cancel this order</source>
+        <target>Voulez-vous vraiment annuler cette commande</target>
+      </trans-unit>
+      <trans-unit id="IF8BY7D" resname="Cancel Order">
+        <source>Cancel Order</source>
+        <target>Annuler Commande</target>
+      </trans-unit>
+      <trans-unit id="n_TGjsI" resname="Driver">
+        <source>Driver</source>
+        <target>Livreur</target>
+      </trans-unit>
+      <trans-unit id="5x5ZT7R" resname="Chose Driver">
+        <source>Chose Driver</source>
+        <target>Choisir Livreur</target>
+      </trans-unit>
+      <trans-unit id="uBxWtS." resname="List drivers from">
+        <source>List drivers from</source>
+        <target>Liste des livreurs de</target>
+      </trans-unit>
+      <trans-unit id="XrcrYE5" resname="Driver Name">
+        <source>Driver Name</source>
+        <target>Nom du Livreur</target>
+      </trans-unit>
+      <trans-unit id="ftnbLZ8" resname="List Of Restaurant">
+        <source>List Of Restaurant</source>
+        <target>Liste des restaus</target>
+      </trans-unit>
+      <trans-unit id="PJsEOus" resname="Restaurant List">
+        <source>Restaurant List</source>
+        <target>Liste des restaus</target>
+      </trans-unit>
+      <trans-unit id="xTsg.nJ" resname="Order Tracking">
+        <source>Order Tracking</source>
+        <target>Suivi deu commande</target>
+      </trans-unit>
+      <trans-unit id="3T86CU0" resname="Status Date">
+        <source>Status Date</source>
+        <target>Date</target>
+      </trans-unit>
+      <trans-unit id="346Q1YA" resname="Order Processed">
+        <source>Order Processed</source>
+        <target>Commande traitée</target>
+      </trans-unit>
+      <trans-unit id=".idpuCJ" resname="We are preparing your order in">
+        <source>We are preparing your order in</source>
+        <target>Nous préparons votre commande en</target>
+      </trans-unit>
+      <trans-unit id="a_CQgly" resname="Order">
+        <source>Order</source>
+        <target>Commande</target>
+      </trans-unit>
+      <trans-unit id="OZXmGfH" resname="Order Confirmed">
+        <source>Order Confirmed</source>
+        <target>Commande confirmée</target>
+      </trans-unit>
+      <trans-unit id="i.2BDXC" resname="Your Order has been confirmed in">
+        <source>Your Order has been confirmed in</source>
+        <target>Votre commande a été confirmée en</target>
+      </trans-unit>
+      <trans-unit id="d3FovHm" resname="Order in Transit">
+        <source>Order in Transit</source>
+        <target>Commande en transit</target>
+      </trans-unit>
+      <trans-unit id="3WpQagK" resname="Your order is ready in Transit in">
+        <source>Your order is ready in Transit in</source>
+        <target>Votre commande est prête en transit en</target>
+      </trans-unit>
+      <trans-unit id="Ia1wfu7" resname="Order Delivered">
+        <source>Order Delivered</source>
+        <target>Commande livrée</target>
+      </trans-unit>
+      <trans-unit id="41ig3XC" resname="We have received your order in">
+        <source>We have received your order in</source>
+        <target>Nous avons reçu votre commande en</target>
+      </trans-unit>
+      <trans-unit id="oCmYsO8" resname="Cart is empty">
+        <source>Cart is empty</source>
+        <target>Le panier est vide</target>
+      </trans-unit>
+      <trans-unit id="YqaT80g" resname="My Cart">
+        <source>My Cart</source>
+        <target>Mon panier</target>
+      </trans-unit>
+      <trans-unit id="_574lBd" resname="Product">
+        <source>Product</source>
+        <target>Produit</target>
+      </trans-unit>
+      <trans-unit id="giurjUG" resname="Quantity">
+        <source>Quantity</source>
+        <target>Quantité</target>
+      </trans-unit>
+      <trans-unit id="y1vOHM4" resname="Update Cart">
+        <source>Update Cart</source>
+        <target>Modifier Panier</target>
+      </trans-unit>
+      <trans-unit id="Rrtmn0u" resname="Order Summary">
+        <source>Order Summary</source>
+        <target>Récapitulatif de la commande</target>
+      </trans-unit>
+      <trans-unit id="wobgLRQ" resname="Proceed to Checkout">
+        <source>Proceed to Checkout</source>
+        <target>Passer au paiment</target>
+      </trans-unit>
+      <trans-unit id="sJpO_9p" resname="Continue Shopping">
+        <source>Continue Shopping</source>
+        <target>Continuer vos achats</target>
+      </trans-unit>
+      <trans-unit id=".toahLW" resname="Checkout Page">
+        <source>Checkout Page</source>
+        <target>Page de paiement</target>
+      </trans-unit>
+      <trans-unit id="slY2r8." resname="Billing Details">
+        <source>Billing Details</source>
+        <target>Détails de la facturation</target>
+      </trans-unit>
+      <trans-unit id="sobH9uD" resname="Mobile Phone">
+        <source>Mobile Phone</source>
+        <target>Téléphone mobile</target>
+      </trans-unit>
+      <trans-unit id="_bc_Grw" resname="Note (optional)">
+        <source>Note (optional)</source>
+        <target>Note (facultatif)</target>
+      </trans-unit>
+      <trans-unit id="mecfSMS" resname="Checkout">
+        <source>Checkout</source>
+        <target>Paiment</target>
+      </trans-unit>
+      <trans-unit id="aJcSg4Q" resname="Subject">
+        <source>Subject</source>
+        <target>Sujet</target>
+      </trans-unit>
+      <trans-unit id="L3dmip3" resname="Message">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="GeQo4R2" resname="Send Request">
+        <source>Send Request</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="tEcDTtq" resname="The Product is Added to">
+        <source>The Product is Added to</source>
+        <target>Le produit est ajouté au</target>
+      </trans-unit>
+      <trans-unit id="bS1ZrtR" resname="Cart">
+        <source>Cart</source>
+        <target>Panier</target>
+      </trans-unit>
+      <trans-unit id="zXdxjJr" resname="Add to Cart">
+        <source>Add to Cart</source>
+        <target>Ajouter au panier</target>
+      </trans-unit>
+      <trans-unit id="7mL8bO8" resname="UnFollow">
+        <source>UnFollow</source>
+        <target>Ne pas suivre</target>
+      </trans-unit>
+      <trans-unit id="ZB0e9le" resname="Follow">
+        <source>Follow</source>
+        <target>Suivre</target>
+      </trans-unit>
+      <trans-unit id="tdxYcyi" resname="Close Filter">
+        <source>Close Filter</source>
+        <target>Fermer le filtre</target>
+      </trans-unit>
+      <trans-unit id="pSrOQg8" resname="All">
+        <source>All</source>
+        <target>Tout</target>
+      </trans-unit>
+      <trans-unit id="frEmLFz" resname="Your cart">
+        <source>Your cart</source>
+        <target>Votre panier</target>
+      </trans-unit>
+      <trans-unit id="2Mco5Lz" resname="View/Edit Cart">
+        <source>View/Edit Cart</source>
+        <target>Voir/Modifier Panier</target>
+      </trans-unit>
+      <trans-unit id="tV5wnFG" resname="Checkout Now">
+        <source>Checkout Now</source>
+        <target>Commander</target>
+      </trans-unit>
+      <trans-unit id="w4EvxKy" resname="Remove">
+        <source>Remove</source>
+        <target>Suprimer</target>
+      </trans-unit>
+      <trans-unit id="YQz8Xut" resname="Order History">
+        <source>Order History</source>
+        <target>Historique des commandes</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+      </trans-unit>
+      <trans-unit id="nIcKpuX" resname="How it works">
+        <source>How it works</source>
+        <target>Comment ça fonctionne</target>
+      </trans-unit>
+      <trans-unit id="u3j4rWR" resname="Get your favourite food in 4 simple steps">
+        <source>Get your favourite food in 4 simple steps</source>
+        <target>Obtenez votre plat préféré en 4 étapes simples</target>
+      </trans-unit>
+      <trans-unit id="9gAowlQ" resname="Find all restaurants available near you">
+        <source>Find all restaurants available near you</source>
+        <target>Trouvez tous les restaurants disponibles près de chez vous</target>
+      </trans-unit>
+      <trans-unit id="x.k3g29" resname="Choose">
+        <source>Choose</source>
+        <target>Choisir</target>
+      </trans-unit>
+      <trans-unit id="cjr6OU2" resname="Pay">
+        <source>Pay</source>
+        <target>Payer</target>
+      </trans-unit>
+      <trans-unit id="sxk_DCW" resname="It's quick, secure and easy">
+        <source>It's quick, secure and easy</source>
+        <target>C'est rapide, sûr et facile</target>
+      </trans-unit>
+      <trans-unit id="tt0KNNR" resname="Enjoy">
+        <source>Enjoy</source>
+        <target>Profiter</target>
+      </trans-unit>
+      <trans-unit id="bMz2WUu" resname="Food is prepared &amp; delivered to your door">
+        <source>Food is prepared &amp; delivered to your door</source>
+        <target><![CDATA[La nourriture est préparée et livré à votre porte>>]]></target>
+      </trans-unit>
+      <trans-unit id="R6rzG4P" resname="Contact us">
+        <source>Contact us</source>
+        <target>Contactez-nous</target>
+      </trans-unit>
+      <trans-unit id="K1w9JnI" resname="Contact">
+        <source>Contact</source>
+        <target>Nous contacter</target>
+      </trans-unit>
+      <trans-unit id="dvOF5iu" resname="SignUp">
+        <source>SignUp</source>
+        <target>S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="OTJCNhd" resname="Customer SignUp">
+        <source>Customer SignUp</source>
+        <target>Inscription client</target>
+      </trans-unit>
+      <trans-unit id="RJjAnf8" resname="Restaurant SignUp">
+        <source>Restaurant SignUp</source>
+        <target>Inscription Restaurant</target>
+      </trans-unit>
+      <trans-unit id="gabX4S5" resname="Driver SignUp">
+        <source>Driver SignUp</source>
+        <target>Inscription livreur</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Login</target>
+      </trans-unit>
+      <trans-unit id="qpVlkCr" resname="My Order">
+        <source>My Order</source>
+        <target>Mes commandes</target>
+      </trans-unit>
+      <trans-unit id="ogCBNm6" resname="LogOut">
+        <source>LogOut</source>
+        <target>LogOut</target>
+      </trans-unit>
+      <trans-unit id="vMC8yRQ" resname="Sign In">
+        <source>Sign In</source>
+        <target>S'identifier</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="u3I07BJ" resname="Register">
+        <source>Register</source>
+        <target>S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="Bv6ygsq" resname="Customer registration">
+        <source>Customer registration</source>
+        <target>Inscription clinet</target>
+      </trans-unit>
+      <trans-unit id="YNxMXTh" resname="Create An Account">
+        <source>Create An Account</source>
+        <target>Créer un compte</target>
+      </trans-unit>
+      <trans-unit id="R94jWG5" resname="Sign Up">
+        <source>Sign Up</source>
+        <target>S'inscrire</target>
+      </trans-unit>
+      <trans-unit id="Yon0PpV" resname="Driver registration">
+        <source>Driver registration</source>
+        <target>Inscrpition livreur</target>
+      </trans-unit>
+      <trans-unit id="WsJl85a" resname="Confirm password">
+        <source>Confirm password</source>
+        <target>Confirmation mot de passe</target>
+      </trans-unit>
+      <trans-unit id="mxJjJdM" resname="Restaurant registration">
+        <source>Restaurant registration</source>
+        <target>Inscription Restaurant</target>
+      </trans-unit>
+      <trans-unit id="eIWKcdD" resname="Chef registration">
+        <source>Chef registration</source>
+        <target>Inscription Chef</target>
+      </trans-unit>
+      <trans-unit id="MydpqOK" resname="Exclusive Offers">
+        <source>Exclusive Offers</source>
+        <target>Offres exclusives</target>
+      </trans-unit>
+      <trans-unit id="gOtCBnu" resname="Choose Your Membership">
+        <source>Choose Your Membership</source>
+        <target>Choisissez votre adhésion</target>
+      </trans-unit>
+      <trans-unit id="pG8p1e6" resname="Choose This Plan">
+        <source>Choose This Plan</source>
+        <target>Choisir ce plan</target>
+      </trans-unit>
+      <trans-unit id="VlhZvLs" resname="State/Region">
+        <source>State/Region</source>
+        <target>State/Region</target>
+      </trans-unit>
+      <trans-unit id="f2mNUKV" resname="Post code/Zip code">
+        <source>Post code/Zip code</source>
+        <target>Post code/Zip code</target>
+      </trans-unit>
+      <trans-unit id="ijht0Uy" resname="Street address">
+        <source>Street address</source>
+        <target>Rue/Boulevard</target>
+      </trans-unit>
+      <trans-unit id="qr528fT" resname="Customers">
+        <source>Customers</source>
+        <target>Clients</target>
+      </trans-unit>
+      <trans-unit id="6RSO1KP" resname="List Of Customers">
+        <source>List Of Customers</source>
+        <target>Liste des clients</target>
+      </trans-unit>
+      <trans-unit id="0v7XFIO" resname="Checkout Complete">
+        <source>Checkout Complete</source>
+        <target>Commande terminé</target>
+      </trans-unit>
+      <trans-unit id="gQ7QnVg" resname="Thank you for your order!">
+        <source>Thank you for your order!</source>
+        <target>Merci pour votre commande!</target>
+      </trans-unit>
+      <trans-unit id="BtwNo0J" resname="Your order has been placed and will be processed as soon as possible.">
+        <source>Your order has been placed and will be processed as soon as possible.</source>
+        <target>Votre commande a été passée et sera traitée dans les plus brefs délais.</target>
+      </trans-unit>
+      <trans-unit id="9IqaqiM" resname="Food Delivery">
+        <source>Food Delivery</source>
+        <target>Food Delivery</target>
+      </trans-unit>
+      <trans-unit id="Wd4SHbG" resname="Package">
+        <source>Package</source>
+        <target>Package</target>
+      </trans-unit>
+      <trans-unit id="9ujhU08" resname="Restaurant name">
+        <source>Restaurant name</source>
+        <target>Nom du Restaurant</target>
+      </trans-unit>
+      <trans-unit id=".JxFHUr" resname="Restaurant phone">
+        <source>Restaurant phone</source>
+        <target>Numero du restaurant</target>
+      </trans-unit>
+      <trans-unit id="3ewPwxO" resname="Contact name">
+        <source>Contact name</source>
+        <target>Contact name</target>
+      </trans-unit>
+      <trans-unit id="ByQ.H7e" resname="Contact phone">
+        <source>Contact phone</source>
+        <target>Contact phone</target>
+      </trans-unit>
+      <trans-unit id="bX.OEa4" resname="Contact email">
+        <source>Contact email</source>
+        <target>Contact email</target>
+      </trans-unit>
+      <trans-unit id="QajaUHO" resname="New Order">
+        <source>New Order</source>
+        <target>Nouvel ordre</target>
+      </trans-unit>
+      <trans-unit id="2ivvNop" resname="one wrong image">
+        <source>one wrong image</source>
+        <target>__one wrong image</target>
+      </trans-unit>
+      <trans-unit id="jhEiOO9" resname="Restaurant Name">
+        <source>Restaurant Name</source>
+        <target>__Restaurant Name</target>
+      </trans-unit>
+      <trans-unit id="c63BMXr" resname="Restaurant Phone">
+        <source>Restaurant Phone</source>
+        <target>__Restaurant Phone</target>
+      </trans-unit>
+      <trans-unit id="o7UMR2c" resname="State">
+        <source>State</source>
+        <target>__State</target>
+      </trans-unit>
+      <trans-unit id="imYPbJx" resname="Post Code">
+        <source>Post Code</source>
+        <target>__Post Code</target>
+      </trans-unit>
+      <trans-unit id="zj4As3M" resname="Service Type">
+        <source>Service Type</source>
+        <target>__Service Type</target>
+      </trans-unit>
+      <trans-unit id="P1Od68j" resname="Profile Image">
+        <source>Profile Image</source>
+        <target>__Profile Image</target>
+      </trans-unit>
+      <trans-unit id="_UGDApA" resname="Cover Image">
+        <source>Cover Image</source>
+        <target>__Cover Image</target>
+      </trans-unit>
+      <trans-unit id="Rcg2m6B" resname="List Menu">
+        <source>List Menu</source>
+        <target>__List Menu</target>
+      </trans-unit>
+      <trans-unit id="P.YNR3M" resname="Menu List">
+        <source>Menu List</source>
+        <target>__Menu List</target>
+      </trans-unit>
+      <trans-unit id="c6dWUwZ" resname="Track Order">
+        <source>Track Order</source>
+        <target>__Track Order</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="author" content="www.foodepia.com" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{% block title %}Foodepia{% endblock %}</title>
+        <!-- Custom CSS -->
+        <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
+
+        {% block stylesheets %}{% endblock %}
+    </head>
+    <body class="grocery-theme light">
+
+    <div id="preloader"><div class="preloader"><span></span><span></span></div></div>
+
+    <div id="main-wrapper">
+        {% include "frontOffice/master/header.html.twig" %}
+
+        {% block body %}{% endblock %}
+
+        {% include "frontOffice/master/footer.html.twig" %}
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="{{ asset('assets/js/jquery.min.js')  }}"></script>
+    <script src="{{ asset('assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.min.js')}}"></script>
+    <script src="{{ asset('assets/js/metisMenu.min.js')  }}"></script>
+    <script src="{{ asset('assets/js/owl-carousel.js') }}"></script>
+    <script src="{{ asset('assets/js/ion.rangeSlider.min.js') }}"></script>
+    <script src="{{ asset('assets/js/smoothproducts.js') }}"></script>
+    <script src="{{ asset('assets/js/jquery-rating.js') }}"></script>
+    <script src="{{ asset('assets/js/jQuery.style.switcher.js') }}"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+    <!-- new script -->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <!-- new script -->
+
+
+    <!-- my script -->
+    <script src="{{ asset('assets/js/myScript.js') }}"></script>
+    <!-- my script -->
+
+
+    <!-- ============================================================== -->
+    <!-- This page plugins -->
+    <!-- ============================================================== -->
+
+    {% block javascripts %}{% endblock %}
+    </body>
+</html>

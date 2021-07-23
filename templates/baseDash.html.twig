@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>{% block title %}Foodepia Dashboard{% endblock %}</title>
+    <!-- Iconic Fonts -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('dashAssets/iconic-fonts/font-awesome/css/all.min.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('dashAssets/iconic-fonts/flat-icons/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashAssets/iconic-fonts/cryptocoins/cryptocoins.css') }}">
+    <link rel="stylesheet" href="{{ asset('dashAssets/iconic-fonts/cryptocoins/cryptocoins-colors.css') }}">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ asset('dashAssets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- jQuery UI -->
+    <link href="{{ asset('dashAssets/css/jquery-ui.min.css') }}" rel="stylesheet">
+    <!-- Page Specific CSS (Slick Slider.css) -->
+    <link href="{{ asset('dashAssets/css/slick.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashAssets/css/datatables.min.css') }}" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('dashAssets/img/favicon.ico') }}">
+    <!-- Costic styles -->
+    <link href="{{ asset('dashAssets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ asset('dashAssets/css/StyleFileComponent.css') }}" rel="stylesheet">
+
+    {% block stylesheets %}{% endblock %}
+
+</head>
+
+<body class="ms-body ms-aside-left-open ms-primary-theme ms-has-quickbar">
+<!-- Preloader -->
+<div id="preloader-wrap">
+    <div class="spinner spinner-8">
+        <div class="ms-circle1 ms-child"></div>
+        <div class="ms-circle2 ms-child"></div>
+        <div class="ms-circle3 ms-child"></div>
+        <div class="ms-circle4 ms-child"></div>
+        <div class="ms-circle5 ms-child"></div>
+        <div class="ms-circle6 ms-child"></div>
+        <div class="ms-circle7 ms-child"></div>
+        <div class="ms-circle8 ms-child"></div>
+        <div class="ms-circle9 ms-child"></div>
+        <div class="ms-circle10 ms-child"></div>
+        <div class="ms-circle11 ms-child"></div>
+        <div class="ms-circle12 ms-child"></div>
+    </div>
+</div>
+<!-- Overlays -->
+<div class="ms-aside-overlay ms-overlay-left ms-toggler" data-target="#ms-side-nav" data-toggle="slideLeft"></div>
+<div class="ms-aside-overlay ms-overlay-right ms-toggler" data-target="#ms-recent-activity" data-toggle="slideRight"></div>
+<!-- Sidebar Navigation Left -->
+
+
+{% if app.user.roles[0] == 'ROLE_ADMIN'%}
+
+    {% include "backOffice/master/navigationAdmin.html.twig" %}
+
+{% elseif app.user.roles[0] == 'ROLE_SECOND_ADMIN' %}
+
+    {% include "backOffice/master/navigationSecondAdmin.html.twig" %}
+
+{% elseif app.user.roles[0] == 'ROLE_DRIVER' %}
+
+    {% include "backOffice/master/navigationDriver.html.twig" %}
+
+{% else %}
+
+    {% include "backOffice/master/navigationAdmin.html.twig" %}
+
+{% endif %}
+
+<!-- Sidebar Right -->
+<aside id="ms-recent-activity" class="side-nav fixed ms-aside-right ms-scrollable">
+    <div class="ms-aside-header">
+        <ul class="nav nav-tabs tabs-bordered d-flex nav-justified mb-3" role="tablist">
+            <li role="presentation" class="fs-12"><a href="#activityLog" aria-controls="activityLog" class="active" role="tab" data-toggle="tab"> Activity Log</a>
+            </li>
+            <li>
+                <button type="button" class="close ms-toggler text-center" data-target="#ms-recent-activity" data-toggle="slideRight"><span aria-hidden="true">&times;</span>
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="ms-aside-body">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade show" id="activityLog">
+                <ul class="ms-activity-log">
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-light"> <i class="flaticon-gear"></i>
+                        </div>
+                        <h6>Update 1.0.0 Pushed</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2019</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-success"> <i class="flaticon-tick-inside-circle"></i>
+                        </div>
+                        <h6>Profile Updated</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2018</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-warning"> <i class="flaticon-alert-1"></i>
+                        </div>
+                        <h6>Your payment is due</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2019</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-danger"> <i class="flaticon-alert"></i>
+                        </div>
+                        <h6>Database Error</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2018</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-info"> <i class="flaticon-information"></i>
+                        </div>
+                        <h6>Checkout what's Trending</h6>
+                        <span> <i class="material-icons">event</i>1 January, 2019</span>
+                        <p class="fs-14">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, ula in sodales vehicula....</p>
+                    </li>
+                    <li>
+                        <div class="ms-btn-icon btn-pill icon btn-secondary"> <i class="flaticon-diamond"></i>
+                        </div>
+                        <h6>Your Dashboard is ready</h6>
+                        <span> <i class="material-icons">event</i>4 March, 2018</span>
+                        <p class="fs-14">Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
+                    </li>
+                </ul> <a href="#" class="btn btn-primary d-block"> View All </a>
+            </div>
+        </div>
+    </div>
+</aside>
+<!-- Main Content -->
+
+
+
+
+<main class="body-content">
+    <!-- Navigation Bar -->
+    {% if app.user.roles[0] == 'ROLE_ADMIN'%}
+
+        {% include "backOffice/master/navBarAdmin.html.twig" %}
+
+    {% elseif app.user.roles[0] == 'ROLE_SECOND_ADMIN' %}
+
+        {% include "backOffice/master/navbarSecondAdmin.html.twig" %}
+
+    {% elseif app.user.roles[0] == 'ROLE_DRIVER' %}
+
+        {% include "backOffice/master/navbarDriver.html.twig" %}
+
+    {% else %}
+
+        {% include "backOffice/master/navBarAdmin.html.twig" %}
+
+    {% endif %}
+
+    <div class="ms-content-wrapper">
+        <div class="row">
+            {% block body %}
+
+            {% endblock %}
+        </div>
+    </div>
+</main>
+
+<!-- SCRIPTS -->
+<!-- Global Required Scripts Start -->
+<script src="{{ asset('dashAssets/js/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/popper.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/perfect-scrollbar.js') }}"></script>
+<script src="{{ asset('dashAssets/js/jquery-ui.min.js') }}"></script>
+
+
+
+<!-- Global Required Scripts End -->
+<!-- Page Specific Scripts Start -->
+<!--
+<script src="{{ asset('dashAssets/js/Chart.bundle.min.js') }}"></script>
+-->
+<!--
+<script src="{{ asset('dashAssets/js/widgets.js') }}"> </script>
+-->
+<!--
+<script src="{{ asset('dashAssets/js/clients.js') }}"></script>
+-->
+<!--
+<script src="{{ asset('dashAssets/js/Chart.Financial.js') }}"></script>
+-->
+<script src="{{ asset('dashAssets/js/d3.v3.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/topojson.v1.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/datatables.min.js') }}"></script>
+<script src="{{ asset('dashAssets/js/data-tables.js') }}"></script>
+<!-- Page Specific Scripts Finish -->
+<!-- Costic core JavaScript -->
+<script src="{{ asset('dashAssets/js/framework.js') }}"></script>
+<!-- Settings -->
+<script src="{{ asset('dashAssets/js/settings.js') }}"></script>
+
+<!-- new script
+<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    new script -->
+
+<!-- my script -->
+<script src="{{ asset('dashAssets/js/custom-file-input.js') }}"></script>
+<script src="{{ asset('dashAssets/js/app.js') }}"></script>
+<script src="{{ asset('dashAssets/js/myScript.js') }}"></script>
+<!-- my script -->
+
+{% block javascripts %}{% endblock %}
+</body>
+</html>

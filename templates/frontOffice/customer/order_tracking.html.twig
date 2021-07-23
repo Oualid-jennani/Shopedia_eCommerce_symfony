@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+	<!-- =========================== Breadcrumbs =================================== -->
+	<div class="breadcrumbs_wrap dark">
+		<div class="container">
+			<div class="row align-items-center">
+
+				<div class="col-lg-12 col-md-12 col-sm-12">
+					<div class="text-center">
+						<h2 class="breadcrumbs_title">{% trans %}Account Settings{% endtrans %}</h2>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#">{% trans %}My Account{% endtrans %}</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{% trans %}Order Tracking{% endtrans %}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- =========================== Breadcrumbs =================================== -->
+
+
+	<!-- =========================== Account Settings =================================== -->
+	<section class="gray">
+		<div class="container">
+			<div class="row">
+
+				{% include "frontOffice/master/dashboardNav.html.twig" %}
+
+
+				<div class="col-lg-8 col-md-9 col-sm-12 col-12">
+					<div class="checked-shop">
+
+						<div class="row">
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								<div class="ship_status_box"><span class="text-bold mr-2">{% trans %}Status{% endtrans %}:</span>{{ order.status }}</div>
+							</div>
+							<div class="col-lg-6 col-md-6 col-sm-12">
+								{% set status = order.statusHistory.last %}
+								<div class="ship_status_box"><span class="text-bold mr-2"> {% trans %}Status Date{% endtrans %}:
+									</span>{{ status.statusDate|date('d/m/Y h:m') }}</div>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-lg-12 col-md-12 col-sm-12">
+								<ul class="track_order_list mt-4">
+
+									{% for statusHistory in order.statusHistory|reverse  %}
+
+										{% if statusHistory.status == 'INITIATED' %}
+
+											<li>
+												<div class="trach_single_list">
+													<div class="trach_icon_list"><i class="ti-thumb-up"></i></div>
+													<div class="track_list_caption">
+														<h4 class="mb-0">{% trans %}Order Processed{% endtrans %}</h4>
+														<p>{% trans %}We are preparing your order in{% endtrans %} {{ statusHistory.statusDate|date('d/m/Y h:m') }}</p>
+													</div>
+												</div>
+											</li>
+
+										{% elseif statusHistory.status == 'CANCELED' or statusHistory.status == 'RETURNED' %}
+
+											<li>
+												<div class="trach_single_list">
+													<div class="trach_icon_list text-danger"><i class="ti-close"></i></div>
+													<div class="track_list_caption">
+														<h4 class="mb-0">{% trans %}Order{% endtrans %} {{ statusHistory.status|capitalize }}</h4>
+														<p>Order {{ statusHistory.status|capitalize  }} in {{ statusHistory.statusDate|date('d/m/Y h:m') }}</p>
+													</div>
+												</div>
+											</li>
+
+										{% elseif statusHistory.status == 'VALIDATED'%}
+
+											<li class="processing">
+												<div class="trach_single_list">
+													<div class="trach_icon_list"><i class="ti-package"></i></div>
+													<div class="track_list_caption">
+														<h4 class="mb-0">{% trans %}Order Confirmed{% endtrans %}</h4>
+														<p>{% trans %}Your Order has been confirmed in{% endtrans %} {{ statusHistory.statusDate|date('d/m/Y h:m') }}</p>
+													</div>
+												</div>
+											</li>
+
+										{% elseif statusHistory.status == 'IN TRANSIT'%}
+
+											<li>
+												<div class="trach_single_list">
+													<div class="trach_icon_list"><i class="fa fa-motorcycle"></i></div>
+													<div class="track_list_caption">
+														<h4 class="mb-0">{% trans %}Order in Transit{% endtrans %}</h4>
+														<p>{% trans %}Your order is ready in Transit in{% endtrans %} {{ statusHistory.statusDate|date('d/m/Y h:m') }}</p>
+													</div>
+												</div>
+											</li>
+
+										{% elseif statusHistory.status == 'DELIVERED'%}
+
+											<li class="complete">
+												<div class="trach_single_list">
+													<div class="trach_icon_list"><i class="ti-check-box"></i></div>
+													<div class="track_list_caption">
+														<h4 class="mb-0">{% trans %}Order Delivered{% endtrans %}</h4>
+														<p>{% trans %}We have received your order in{% endtrans %} {{ statusHistory.statusDate|date('d/m/Y h:m') }}</p>
+													</div>
+												</div>
+											</li>
+										{% endif %}
+
+									{% endfor %}
+
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+	<!-- =========================== Account Settings =================================== -->
+{% endblock %}

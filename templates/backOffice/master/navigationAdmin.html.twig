@@ -1,0 +1,97 @@
+<aside id="ms-side-nav" class="side-nav fixed ms-aside-scrollable ms-aside-left">
+    <!-- Logo -->
+    <div class="logo-sn bg-white ms-d-block-lg">
+        <a class="pl-0 ml-0 text-center" href="index.html">
+            <img src="{{ asset('dashAssets/img/logo.png') }}" alt="logo">
+        </a>
+    </div>
+    <!-- Navigation -->
+    <ul class="accordion ms-main-aside fs-14" id="side-nav-accordion">
+
+        <!-- Dashboard -->
+        <li class="menu-item">
+            <a href="#" class="has-chevron" data-toggle="collapse" data-target="#dashboard" aria-expanded="false" aria-controls="dashboard"> <span><i class="material-icons fs-16">dashboard</i>Dashboard </span>
+            </a>
+            <ul id="dashboard" class="collapse" aria-labelledby="dashboard" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('dashboardAdmin') }}">Costic</a></li>
+            </ul>
+        </li>
+        <!-- /Dashboard -->
+
+        <!-- Pays & City -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#CountryCity" aria-expanded="false" aria-controls="CountryCity"> <span><i class="far fa-building fs-16"></i>Country & City </span>
+            </a>
+            <ul id="CountryCity" class="collapse" aria-labelledby="CountryCity" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('listCountries') }}">Countries</a></li>
+                <li> <a href="{{ path('listCities') }}">Cities</a></li>
+            </ul>
+        </li>
+        <!-- /Pays & City -->
+
+        <!-- Categories -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Categories" aria-expanded="false" aria-controls="Categories"> <span><i class="fas fa-tags fs-16"></i> Categories </span>
+            </a>
+            <ul id="Categories" class="collapse" aria-labelledby="Categories" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('listCategory') }}">Categories List</a></li>
+                <li> <a href="{{ path('newCategory') }}">Add Category</a></li>
+            </ul>
+        </li>
+        <!-- /Categories -->
+
+        <!-- Menus -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Products" aria-expanded="false" aria-controls="Products"> <span><i class="fab fa-product-hunt fs-16"></i> Products </span>
+            </a>
+            <ul id="Products" class="collapse" aria-labelledby="Products" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('listProducts') }}">Products List</a></li>
+                <li> <a href="{{ path('newProduct') }}">Add Product</a></li>
+            </ul>
+        </li>
+        <!-- /Menus -->
+
+        <!-- Drivers   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Orders" aria-expanded="false" aria-controls="Orders"> <span><i class="fas fa-motorcycle fs-16"></i> Drivers </span>
+            </a>
+            <ul id="Orders" class="collapse" aria-labelledby="Drivers" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('dashAdminDrivers') }}">Drivers List</a></li>
+            </ul>
+        </li>
+        <!-- /Drivers  -->
+
+
+        <!-- Customers   -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Customers" aria-expanded="false" aria-controls="Customers"> <span><i class="fas fa-user-circle fs-16"></i> Customers </span>
+            </a>
+            <ul id="Customers" class="collapse" aria-labelledby="Customers" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('customers_list') }}">Customers</a></li>
+            </ul>
+        </li>
+        <!-- /Customers  -->
+
+        <!-- Order -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#Menu" aria-expanded="false" aria-controls="Menu"> <span><i class="fa fa-shopping-cart fs-16"></i> Orders </span>
+            </a>
+            <ul id="Menu" class="collapse" aria-labelledby="Menu" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('storeOrders') }}">Order List</a></li>
+            </ul>
+        </li>
+        <!-- /Order -->
+
+        <!-- Second Admin    -->
+        <li class="menu-item">
+            <a href="javascript:void(0)" class="has-chevron" data-toggle="collapse" data-target="#secondAdmin" aria-expanded="false" aria-controls="secondAdmin"> <span><i class="fas fa-user fs-16"></i> Second Admin </span>
+            </a>
+            <ul id="secondAdmin" class="collapse" aria-labelledby="secondAdmin" data-parent="#side-nav-accordion">
+                <li> <a href="{{ path('newSecondAdmin') }}">New Second Admin</a></li>
+                <li> <a href="{{ path('listSecondAdmin') }}">List Second Admins</a></li>
+            </ul>
+        </li>
+        <!-- /Sponsored Restaurant  -->
+
+    </ul>
+</aside>

@@ -1,0 +1,191 @@
+{% extends 'baseDash.html.twig' %}
+
+{% block body %}
+
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+				<li class="breadcrumb-item"><a href="javascript:void(0)">Product</a></li>
+				<li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Product list{% endtrans %}</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">Variant</a></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="col-8 mx-auto">
+			<div class="ms-panel ms-panel-fh">
+				<div class="ms-panel-header mb-4">
+					<h6 class="float-left">{% trans %}Add Variant{% endtrans %}</h6>
+					{% for  message in app.flashes('success') %}
+						<div class=" text-success float-right font-weight-blod">{{ message }}</div>
+					{% endfor %}
+
+					{% for  message in app.flashes('error') %}
+						<div class=" text-danger float-right font-weight-blod">{{ message }}</div>
+					{% endfor %}
+				</div>
+
+
+				<div class="ms-panel-body">
+
+					{{ form_start(form,{'attr':{'class':'needs-validation clearfix'}}) }}
+					<div class="form-row">
+						<div class="col-6">
+							<div class="input-group">
+								<label for="validationCustom01">{% trans %}Size{% endtrans %}</label>
+								<div class="input-group">
+									{{ form_widget(form.size, {'attr':{'class':'form-control','type':'text','placeholder':'','id':'validationCustom01'}}) }}
+									<div class="text-danger">{{ form_errors(form.size)}}</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-6">
+							<div class="input-group">
+								<label for="validationCustom01">{% trans %}price{% endtrans %}</label>
+								<div class="input-group">
+									{{ form_widget(form.price, {'attr':{'class':'form-control','placeholder':'','id':'validationCustom01'}}) }}
+									<div class="text-danger">{{ form_errors(form.price)}}</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<div class="form-row">
+						<div class="col-12 text-right p-0">
+							<button type="submit" class="btn btn-primary m-0">{% trans %}Add{% endtrans %}</button>
+						</div>
+					</div>
+					{{ form_end(form) }}
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="col-md-8 mx-auto">
+			<div class="ms-panel">
+				<div class="ms-panel-header mb-4">
+					<h6 class="float-left">{% trans %}Variant List{% endtrans %}</h6>
+					{% for  message in app.flashes('successEdit') %}
+						<div class=" text-success float-right font-weight-blod">{{ message }}</div>
+					{% endfor %}
+
+					{% for  message in app.flashes('errorEdit') %}
+						<div class=" text-danger float-right font-weight-blod">{{ message }}</div>
+					{% endfor %}
+				</div>
+				<div class="ms-panel-body">
+
+					<div>
+						<table class="table table-hover thead-primary text-center">
+							<thead>
+							<tr>
+								<th scope="col">{% trans %}Price{% endtrans %}</th>
+								<th scope="col">{% trans %}Size{% endtrans %}</th>
+								<th scope="col">Action</th>
+							</tr>
+							</thead>
+							<tbody>
+
+							{% for Variant in Variants|sort((a, b) => a.sort >= b.sort) %}
+								<tr>
+									<td>{{ Variant.price }}</td>
+									<td>{{ Variant.size|upper }}</td>
+
+									<td>
+										<a href='javascript:void(0)' data-toggle="modal" data-target="#modal-3" onclick="editVariant({{ Variant.id }},'{{ Variant.size }}',{{ Variant.price }})"><i class='fas fa-edit text-success'></i></a>
+										<a href='javascript:void(0)' data-toggle="modal" data-target="#modal-1" onclick='deleteAction("{{ path('deleteVariant',{'id':Variant.id})}}")'><i class='far fa-trash-alt ms-text-danger'></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal fade" id="modal-3" tabindex="-1" role="dialog" aria-labelledby="modal-3">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h3 class="modal-title has-icon ms-icon-round "><i class="fas fa-edit"></i>{% trans %}Edit{% endtrans %}</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
+				<form name="variant" method="post" action="{{ path('editVariant')}}">
+					<div class="modal-body">
+						<div class="ms-form-group has-icon">
+							<select id="edit_size" name="variant[size]" class="form-control">
+								<option value="standard">Standard</option>
+								<option value="sm">SM</option>
+								<option value="l">L</option>
+								<option value="m">M</option>
+								<option value="xl">XL</option>
+							</select>
+						</div>
+						<div class="ms-form-group has-icon">
+							<input type="text" id="edit_price" name="variant[price]" class="form-control">
+						</div>
+						<input type="hidden" id="id_v" name="variant[id]">
+					</div>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Cancel{% endtrans %}</button>
+						<button type="submit" class="btn btn-primary shadow-none">{% trans %}Edit{% endtrans %}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<input type="hidden" class="btn btn-primary" data-toggle="modal" id="modalEdit" data-target="#modal-3">
+
+
+	<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i>{% trans %}Delete Confirm{% endtrans %} !</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
+				<div class="modal-body">
+					<p>{% trans %}Do you really want to delete{% endtrans %} ?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+					<a href="#" class="btn btn-primary shadow-none" id="linkDelete">{% trans %}Delete{% endtrans %}</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{%  endblock %}
+
+
+{% block javascripts %}
+
+	<script>
+        function editVariant(id,size,price){
+            $("#id_v").val(id);
+            $("#edit_size").val(size);
+            $("#edit_price").val(price);
+        }
+	</script>
+
+{% endblock %}
+

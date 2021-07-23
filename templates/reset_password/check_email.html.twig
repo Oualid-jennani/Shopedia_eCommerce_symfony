@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Password Reset Email Sent{% endblock %}
+
+{% block body %}
+    <section>
+        <div class="container">
+            <div class="row">
+                <p>{% trans%}An email has been sent that contains a link that you can click to reset your password. This link will expire in{% endtrans%} {{ tokenLifetime|date('g') }} {% trans %}hour(s){% endtrans %}.</p>
+                <p>{% trans%}If you don't receive an email please check your spam folder or{% endtrans%} <a href="{{ path('app_forgot_password_request') }}">{% trans %}try again{% endtrans %}</a>.</p>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

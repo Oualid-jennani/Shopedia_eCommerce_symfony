@@ -1,0 +1,15 @@
+<div class="col-lg-4 col-md-3">
+	<nav class="dashboard-nav mb-10 mb-md-0">
+		<div class="list-group list-group-sm list-group-strong list-group-flush-x">
+			<a class="list-group-item list-group-item-action dropright-toggle" href="{{ path('order_history') }}">
+				{% trans %}Order History{% endtrans %}
+			</a>
+			<a class="list-group-item list-group-item-action dropright-toggle active" href="{{ path('account-info') }}">
+				{% trans %}Account Settings{% endtrans %}
+			</a>
+			<a class="list-group-item list-group-item-action dropright-toggle" href="{{ path('security_logout') }}">
+				 {% trans %}Logout{% endtrans %}
+			</a>
+		</div>
+	</nav>
+</div>

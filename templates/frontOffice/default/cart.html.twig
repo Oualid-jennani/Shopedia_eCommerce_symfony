@@ -1,0 +1,173 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+	{% if not cart|default(null) %}
+		<!-- =========================== Empty Cart =================================== -->
+		<section class="p-">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-5 col-6 m-auto">
+						<h1 class="text-center mt-3">{% trans %}Cart is empty{% endtrans %}</h1>
+						<img src="{{ asset('assets/img/cart-empty.png') }}" class="w-100">
+					</div>
+				</div>
+			</div>
+		</section>
+
+	<!-- =========================== Empty Cart =================================== -->
+
+	{% else %}
+		{% form_theme form _self %}
+		<!-- =========================== Breadcrumbs =================================== -->
+		<div class="breadcrumbs_wrap gray">
+			<div class="container">
+				<div class="row align-items-center">
+
+					<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+						<div class="text-center">
+							<h2 class="breadcrumbs_title">{% trans %}My Cart{% endtrans %}</h2>
+							<nav aria-label="breadcrumb">
+								<ol class="breadcrumb">
+									<li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+									<li class="breadcrumb-item"><a href="#">Shop</a></li>
+									<li class="breadcrumb-item active" aria-current="page">{% trans %}My Cart{% endtrans %}</li>
+								</ol>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- =========================== Breadcrumbs =================================== -->
+
+		<section>
+			{{ form_start(form) }}
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-8 col-md-12 col-sm-12 col-12">
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+									<tr>
+										<th scope="col">{% trans %}Product{% endtrans %}</th>
+										<th scope="col">{% trans %}Price{% endtrans %}</th>
+										<th scope="col">{% trans %}Quantity{% endtrans %}</th>
+										<th scope="col">Total</th>
+									</tr>
+									</thead>
+									<tbody>
+										{% for row in form.cartLines %}
+											{{ form_row(row) }}
+										{% endfor %}
+									</tbody>
+								</table>
+							</div>
+
+							<!-- Coupon Box -->
+							<div class="row align-items-end justify-content-between mb-10 mb-md-0">
+								<div class="col-12 col-md-auto m-full">
+									<!-- Button -->
+									<button class="btn btn-outline-dark">{% trans %}Update Cart{% endtrans %}</button>
+								</div>
+							</div>
+							<!-- Coupon Box -->
+
+						</div>
+						<div class="col-lg-4 col-md-12 col-sm-12 col-12">
+							<div class="cart_detail_box mb-4">
+								<div class="card-body">
+									<ul class="list-group list-group-sm list-group-flush-y list-group-flush-x">
+										<li class="list-group-item d-flex">
+											<h5 class="mb-0">{% trans %}Order Summary{% endtrans %}</h5>
+										</li>
+										<li class="list-group-item d-flex font-size-lg font-weight-bold">
+											<span>Total</span> <span class="ml-auto font-size-sm">
+												{{ cart.total|number_format(2, ',', ' ') }}
+												{% if  "Morroco" == app.session.get('City') %}
+													Dhs
+												{% else %}
+													$
+												{% endif %}
+											</span>
+										</li>
+										<!--<li class="list-group-item font-size-sm text-center text-gray-500">
+											Shipping cost calculated at Checkout *
+										</li>-->
+									</ul>
+								</div>
+							</div>
+							<a class="btn btn-block btn-dark mb-2" href="{{ path('checkout') }}">{% trans %}Proceed to Checkout{% endtrans %}</a>
+							<a class="px-0 text-body" href="{{ path('index') }}"><i class="ti-back-left mr-2"></i> {% trans %}Continue Shopping{% endtrans %}</a>
+						</div>
+
+					</div>
+				</div>
+			{{ form_end(form) }}
+		</section>
+		<!-- =========================== Add To Cart =================================== -->
+	{% endif %}
+
+{% endblock %}
+
+{% block _cart_cartLines_entry_row %}
+
+	{% set variant = form.vars.value.variant %}
+
+	<tr>
+		<td>
+
+			<div class="tbl_cart_product">
+				<div class="tbl_cart_product_thumb">
+					<img src="{{ asset('images/product/') }}{{ variant.product.images[0] }}" class="img-fluid" alt="" />
+				</div>
+				<div class="tbl_cart_product_caption">
+					<h5 class="tbl_pr_title">{{ variant.product.name }}</h5>
+					<span class="tbl_pr_quality theme-cl">Brown</span>
+				</div>
+			</div>
+
+		</td>
+		<td>
+			<h4 class="tbl_org_price">
+				{{ variant.price|number_format(2, ',', ' ') }}
+				{% if  "Morroco" == app.session.get('City') %}
+					Dhs
+				{% else %}
+					$
+				{% endif %}
+			</h4>
+		</td>
+		<td>{{ form_widget(form.quantity, {'attr': {'class': 'form-control tbl_quan','min':'1','max':'10'}}) }}</td>
+		<td>
+			<div class="tbl_pr_action">
+				<h5 class="tbl_total_price">
+					{{ form.vars.value.total()|number_format(2, ',', ' ') }}
+					{% if  "Morroco" == app.session.get('City') %}
+						Dhs
+					{% else %}
+						$
+					{% endif %}
+				</h5>
+				<a href="javascript:void(0);" class="tbl_remove"><i class="ti-close"></i></a>
+			</div>
+		</td>
+	</tr>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript">
+        (function () {
+            $('.tbl_remove').on('click', function () {
+                var $object  = $(this).parent().parent().parent();
+                $object.remove();
+            });
+        }())
+	</script>
+{% endblock %}
+
+

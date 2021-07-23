@@ -1,0 +1,192 @@
+{% extends 'backOffice/baseDash.html.twig' %}
+
+{% block body %}
+    <style>
+        #map{
+            height: 300px;
+        }
+    </style>
+    <div class="col-md-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+                <li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+                <li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Drivers{% endtrans %}</a></li>
+                <li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}List Of Drivers{% endtrans %}</a></li>
+            </ol>
+        </nav>
+    </div>
+
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-5">
+                <div class="ms-panel">
+                    <div class="ms-panel-header mb-4">
+                        <h6 class="float-left">{% trans %}Drivers List{% endtrans %}</h6>
+                        {% for  message in app.flashes('success') %}
+                            <div class=" text-success font-weight-bold float-right">{{ message }}</div>
+                        {% endfor %}
+
+                        {% for  message in app.flashes('error') %}
+                            <div class=" text-danger font-weight-bold float-right">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="ms-panel-body">
+
+                        <div class="table-responsive">
+                            <table class="table table-hover thead-primary text-center">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th scope="col">{% trans %}FullName{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Contact Phone{% endtrans %}</th>
+                                    <th scope="col">{% trans %}Transportation{% endtrans %}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for driver in drivers |sort|reverse %}
+                                    <tr>
+                                        <td>
+                                            <label class="form-check-label" for="{{ driver.username }}"></label>
+                                            <input class="form-check-input mx-auto" type="radio" name="radioDriver" id="{{ driver.username }}" value="{{ driver.id }}">
+                                        </td>
+                                        <td>{{ driver.fullName }}</td>
+                                        <td>{{ driver.contactPhone }}</td>
+                                        <td>{{ driver.transportation.name }}</td>
+                                    </tr>
+                                {% endfor %}
+
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="ms-panel">
+                    <div class="ms-panel-header mb-4">
+                        <h6 class="float-left">{% trans %}Localisation{% endtrans %}</h6>
+                    </div>
+                    <div class="ms-panel-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i>{% trans %}Delete Confirm{% endtrans %} !</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </div>
+
+                <div class="modal-body">
+                    <p>{% trans %}Do you really want to delete{% endtrans %} ?</p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+                    <a href="#" class="btn btn-primary shadow-none" id="linkDelete">{% trans %}Delete{% endtrans %}</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{%  endblock %}
+
+{% block javascripts %}
+    <script>
+        function deletePackage(link) {
+            document.getElementById("linkDelete").href = link;
+        }
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvs0WiVfCaLHqoes4fv1TW_FdC5-9zoyM&callback=initMap&libraries=&v=weekly"
+            async
+    ></script>
+    <script>
+        $("input[name='radioDriver']").on('change', function getLoc () {
+            const $driver = $(this).val();
+            $("input[name='radioDriver']").parent('td').parent('tr').css("background-color", "white");
+            $("input[name='radioDriver']:checked").parent('td').parent('tr').css("background-color", "#ebebeb");
+            $.ajax({
+                'url' : '/driver-localisation', // To change with Routing.generate later
+                'data' : {
+                    'id' : $driver
+                },
+                'type': 'post',
+                'beforeSend' : function() {
+
+                },
+                success: function (data) {
+                    var loc = data.split(",");
+                    google.maps.event.addDomListener(window, 'load', initMap(loc[0],loc[1],"Oujda"));
+                },
+                error: function (err) {
+                    console.log(err);
+                    return err;
+                }
+            });
+        });
+        function initMap(lat , long,city) {
+            const pos = new google.maps.LatLng(lat,long);
+            const map = new google.maps.Map(document.getElementById("map"), {
+                center: pos,
+                zoom: 17,
+            });
+            const coordInfoWindow = new google.maps.InfoWindow();
+            coordInfoWindow.setContent(
+                createInfoWindowContent(pos, map.getZoom(),city)
+            );
+            coordInfoWindow.setPosition(pos);
+            coordInfoWindow.open(map);
+            map.addListener("zoom_changed", () => {
+                coordInfoWindow.setContent(
+                    createInfoWindowContent(pos, map.getZoom(),city)
+                );
+                coordInfoWindow.open(map);
+            });
+        }
+        const TILE_SIZE = 256;
+
+        function createInfoWindowContent(latLng, zoom,city) {
+            const scale = 1 << zoom;
+            const worldCoordinate = project(latLng);
+            const pixelCoordinate = new google.maps.Point(
+                Math.floor(worldCoordinate.x * scale),
+                Math.floor(worldCoordinate.y * scale)
+            );
+            const tileCoordinate = new google.maps.Point(
+                Math.floor((worldCoordinate.x * scale) / TILE_SIZE),
+                Math.floor((worldCoordinate.y * scale) / TILE_SIZE)
+            );
+            return [
+                city,
+                "LatLng: " + latLng,
+                "Zoom level: " + zoom,
+            ].join("<br>");
+        }
+
+        // The mapping between latitude, longitude and pixels is defined by the web
+        // mercator projection.
+        function project(latLng) {
+            let siny = Math.sin((latLng.lat() * Math.PI) / 180);
+            // Truncating to 0.9999 effectively limits latitude to 89.189. This is
+            // about a third of a tile past the edge of the world tile.
+            siny = Math.min(Math.max(siny, -0.9999), 0.9999);
+            return new google.maps.Point(
+                TILE_SIZE * (0.5 + latLng.lng() / 360),
+                TILE_SIZE * (0.5 - Math.log((1 + siny) / (1 - siny)) / (4 * Math.PI))
+            );
+        }
+    </script>
+
+
+{% endblock %}

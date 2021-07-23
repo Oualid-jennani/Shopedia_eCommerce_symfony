@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+	<!-- =========================== Breadcrumbs =================================== -->
+	<div class="breadcrumbs_wrap gray">
+		<div class="container">
+			<div class="row align-items-center">
+
+				<div class="col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="text-center">
+						<h2 class="breadcrumbs_title">{% trans %}Checkout Complete{% endtrans %}</h2>
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#"><i class="ti-home"></i></a></li>
+								<li class="breadcrumb-item"><a href="#">Shop</a></li>
+								<li class="breadcrumb-item active" aria-current="page">{% trans %}Checkout Complete{% endtrans %}</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- =========================== Breadcrumbs =================================== -->
+
+	<!-- =========================== Add To Cart =================================== -->
+	<section>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-10 col-md-12 col-sm-12">
+
+					<div class="card py-3 mt-sm-3">
+						<div class="card-body text-center">
+							<h2 class="pb-2">{% trans %}Thank you for your order!{% endtrans %}</h2>
+							<p class="font-size-sm mb-2">{% trans %}Your order has been placed and will be processed as soon as possible.{% endtrans %}</p>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- =========================== Add To Cart =================================== -->
+{% endblock %}
+
+
+

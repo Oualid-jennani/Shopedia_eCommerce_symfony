@@ -1,0 +1,116 @@
+{% extends 'backOffice/baseDash.html.twig' %}
+
+{% block body %}
+
+	<div class="col-md-12">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb breadcrumb-arrow has-gap has-bg">
+				<li class="breadcrumb-item"><a href="{{ path('dashboard') }}"><i class="material-icons">home</i> {% trans %}Home{% endtrans %}</a></li>
+				<li class="breadcrumb-item"><a href="javascript:void(0)">{% trans %}Drivers{% endtrans %}</a></li>
+				<li class="breadcrumb-item active"><a href="javascript:void(0)">{% trans %}List Of Drivers{% endtrans %}</a></li>
+			</ol>
+		</nav>
+	</div>
+
+
+	<div class="col-md-12">
+		<div class="col-md-12 mx-auto">
+			<div class="ms-panel">
+				<div class="ms-panel-header mb-4">
+					<h6 class="float-left">{% trans %}Drivers List{% endtrans %}</h6>
+					{% for  message in app.flashes('success') %}
+						<div class=" text-success font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+
+					{% for  message in app.flashes('error') %}
+						<div class=" text-danger font-weight-bold float-right">{{ message }}</div>
+					{% endfor %}
+				</div>
+				<div class="ms-panel-body">
+
+					<div class="table-responsive">
+						<form action="{{ path('second_admin_assign_drivers_to_section') }}">
+							<button class="btn btn-primary mb-3">Assign To Section</button>
+							<table class="table table-hover thead-primary text-center">
+							<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">{% trans %}Username{% endtrans %}</th>
+								<th scope="col">{% trans %}FullName{% endtrans %}</th>
+								<th scope="col">{% trans %}Contact Phone{% endtrans %}</th>
+								<th scope="col">{% trans %}Country{% endtrans %}</th>
+								<th scope="col">{% trans %}City{% endtrans %}</th>
+								<th scope="col">{% trans %}Transportation{% endtrans %}</th>
+								<th scope="col">{% trans %}Transportation Licence Plate{% endtrans %}</th>
+								<th scope="col">{% trans %}Transportation Color{% endtrans %}</th>
+								<th scope="col">Action</th>
+							</tr>
+							</thead>
+							<tbody>
+							{% for driver in drivers |sort|reverse %}
+								<tr>
+									<td>
+										<label class="ms-checkbox-wrap ms-checkbox-success">
+											<input type="checkbox" id="checkbox{{ driver.id }}" name="checkbox[]" value="{{ driver.id }}">
+											<i class="ms-checkbox-check"></i>
+										</label>
+									</td>
+									<td>{{ driver.username }}</td>
+									<td>{{ driver.fullName }}</td>
+									<td>{{ driver.contactPhone }}</td>
+									<td>{{ driver.city.country.name }}</td>
+									<td>{{ driver.city.name }}</td>
+									{% if driver.transportation is not null %}
+										<td>{{ driver.transportation.name }}</td>
+										<td>{{ driver.transportation.licencePlate }}</td>
+										<td>{{ driver.transportation.color }}</td>
+									{% else %}
+										<td>Null</td>
+										<td>Null</td>
+										<td>Null</td>
+									{% endif %}
+									<td>
+										<a href='javascript:void(0)' data-toggle="modal" data-target="#modal-1" onclick='deletePackage("{{ path('second_admin_drivers_cancel',{'id':driver.id})}}")'><i class='fa fa-ban ms-text-danger'></i></a>
+									</td>
+								</tr>
+							{% endfor %}
+							</tbody>
+						</table>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="modal-1" tabindex="-1" role="dialog" aria-labelledby="modal-1">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+
+				<div class="modal-header">
+					<h3 class="modal-title has-icon ms-icon-round "><i class="flaticon-alert-1 bg-primary text-white"></i>{% trans %}Delete Confirm{% endtrans %} !</h3>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				</div>
+
+				<div class="modal-body">
+					<p>{% trans %}Do you really want to block this driver{% endtrans %} ?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-light" data-dismiss="modal">{% trans %}Close{% endtrans %}</button>
+					<a href="#" class="btn btn-primary shadow-none" id="linkDelete">{% trans %}Delete{% endtrans %}</a>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+{%  endblock %}
+
+{% block javascripts %}
+	<script>
+        function deletePackage(link) {
+            document.getElementById("linkDelete").href = link;
+        }
+	</script>
+{% endblock %}
